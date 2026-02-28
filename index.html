@@ -11,10 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- EmailJS for sending emails -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
     <style>
+        /* ==========================================
+           SECTION 1: CSS VARIABLES & BASE STYLES
+           Location: <head> -> <style> (top of CSS)
+           Edit: Colors, fonts, transitions
+           ========================================== */
         :root {
             --ventara-primary: #06b6d4;
             --ventara-primary-dark: #0891b2;
@@ -46,7 +48,11 @@
             font-weight: 600;
         }
 
-        /* LOADER WITH YOUR LOGO */
+        /* ==========================================
+           SECTION 2: LOADER STYLES
+           Location: <style> (after base styles)
+           Edit: Logo image, colors, animation timing
+           ========================================== */
         #loader {
             position: fixed;
             top: 0; left: 0;
@@ -61,7 +67,6 @@
         }
         #loader.hidden { opacity: 0; visibility: hidden; }
         
-        /* YOUR LOGO STYLES */
         .loader-logo-img {
             width: 200px;
             height: 200px;
@@ -96,7 +101,11 @@
             to { width: 100%; }
         }
 
-        /* NAVIGATION */
+        /* ==========================================
+           SECTION 3: NAVIGATION STYLES
+           Location: <style> (after loader)
+           Edit: Logo text, nav links, colors
+           ========================================== */
         nav {
             position: fixed;
             top: 0;
@@ -218,61 +227,11 @@
             transition: 0.3s;
         }
 
-        /* FLOATING CART BUTTON (WhatsApp style) */
-        .floating-cart-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 65px;
-            height: 65px;
-            background: var(--ventara-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
-            z-index: 999;
-            transition: var(--transition);
-            border: none;
-            color: white;
-        }
-        
-        .floating-cart-btn:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6);
-            background: var(--ventara-primary-dark);
-        }
-        
-        .floating-cart-btn svg {
-            width: 28px;
-            height: 28px;
-        }
-        
-        .floating-cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--ventara-accent);
-            color: white;
-            font-size: 0.8rem;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            border: 3px solid var(--ventara-darker);
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* HERO SECTION */
+        /* ==========================================
+           SECTION 4: HERO SECTION STYLES
+           Location: <style> (after navigation)
+           Edit: Background gradients, text, buttons
+           ========================================== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -340,7 +299,11 @@
             flex-wrap: wrap;
         }
 
-        /* BUTTONS */
+        /* ==========================================
+           SECTION 5: BUTTON STYLES
+           Location: <style> (after hero)
+           Edit: Button colors, sizes, hover effects
+           ========================================== */
         .btn {
             padding: 1rem 2.5rem;
             border-radius: 50px;
@@ -391,7 +354,11 @@
             transform: translateY(-2px);
         }
 
-        /* SECTIONS */
+        /* ==========================================
+           SECTION 6: SECTION LAYOUT STYLES
+           Location: <style> (after buttons)
+           Edit: Padding, max-width, spacing
+           ========================================== */
         section {
             padding: 6rem 3rem;
             max-width: 1400px;
@@ -425,7 +392,11 @@
             font-size: 1.1rem;
         }
 
-        /* PRODUCTS GRID */
+        /* ==========================================
+           SECTION 7: PRODUCTS GRID STYLES
+           Location: <style> (after sections)
+           Edit: Grid columns, card styles, spacing
+           ========================================== */
         .products-section {
             background: var(--ventara-dark);
             border-radius: 2rem;
@@ -463,16 +434,118 @@
             align-items: center;
             justify-content: center;
         }
-        
-        .product-image img {
+
+        /* ==========================================
+           SECTION 8: CAROUSEL STYLES (NEW)
+           Location: <style> (after product-image)
+           Edit: Carousel animations, dot colors, arrows
+           ========================================== */
+        .product-image-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s;
         }
-        
-        .product-card:hover .product-image img {
-            transform: scale(1.05);
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .carousel-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-dot.active {
+            background: var(--ventara-primary);
+            border-color: white;
+            transform: scale(1.2);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 10;
+            font-size: 18px;
+        }
+
+        .product-card:hover .carousel-arrow {
+            opacity: 1;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--ventara-primary);
+        }
+
+        .carousel-arrow.prev {
+            left: 10px;
+        }
+
+        .carousel-arrow.next {
+            right: 10px;
+        }
+
+        .carousel-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            z-index: 10;
+        }
+
+        .product-image .product-badge {
+            z-index: 20;
         }
         
         .product-badge {
@@ -572,7 +645,11 @@
             text-decoration: line-through;
         }
 
-        /* CART SIDEBAR */
+        /* ==========================================
+           SECTION 9: CART SIDEBAR STYLES
+           Location: <style> (after products)
+           Edit: Cart colors, checkout buttons, spacing
+           ========================================== */
         .cart-overlay {
             position: fixed;
             top: 0;
@@ -834,7 +911,69 @@
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
         }
 
-        /* NEWSLETTER */
+        /* ==========================================
+           SECTION 10: FLOATING CART BUTTON STYLES
+           Location: <style> (after cart)
+           Edit: Position, colors, size
+           ========================================== */
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: var(--ventara-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+            border: none;
+            color: white;
+        }
+        
+        .floating-cart-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6);
+            background: var(--ventara-primary-dark);
+        }
+        
+        .floating-cart-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .floating-cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--ventara-accent);
+            color: white;
+            font-size: 0.8rem;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 3px solid var(--ventara-darker);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ==========================================
+           SECTION 11: NEWSLETTER STYLES
+           Location: <style> (after floating cart)
+           Edit: Background gradient, form layout
+           ========================================== */
         .newsletter {
             background: linear-gradient(135deg, var(--ventara-primary) 0%, var(--ventara-primary-dark) 100%);
             border-radius: 2rem;
@@ -918,7 +1057,11 @@
             background: var(--ventara-darker);
         }
 
-        /* ADMIN PANEL */
+        /* ==========================================
+           SECTION 12: ADMIN PANEL STYLES
+           Location: <style> (after newsletter)
+           Edit: Admin colors, form layouts
+           ========================================== */
         .admin-panel {
             display: none;
             position: fixed;
@@ -1044,7 +1187,6 @@
             min-height: 100px;
         }
         
-        /* IMAGE UPLOAD STYLES */
         .image-upload-area {
             border: 2px dashed rgba(255,255,255,0.2);
             border-radius: 1rem;
@@ -1125,7 +1267,11 @@
             object-fit: cover;
         }
 
-        /* LOGIN MODAL */
+        /* ==========================================
+           SECTION 13: LOGIN MODAL STYLES
+           Location: <style> (after admin)
+           Edit: Modal colors, error message styles
+           ========================================== */
         .login-modal {
             position: fixed;
             top: 0;
@@ -1158,7 +1304,6 @@
             margin-bottom: 2rem;
         }
         
-        /* ERROR MESSAGE STYLES */
         .login-error {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid var(--error);
@@ -1182,7 +1327,11 @@
             flex-shrink: 0;
         }
 
-        /* TOAST */
+        /* ==========================================
+           SECTION 14: TOAST NOTIFICATION STYLES
+           Location: <style> (after login)
+           Edit: Toast colors, position, animation
+           ========================================== */
         .toast-container {
             position: fixed;
             bottom: 100px;
@@ -1228,7 +1377,11 @@
             font-weight: 700;
         }
 
-        /* FOOTER */
+        /* ==========================================
+           SECTION 15: FOOTER STYLES
+           Location: <style> (end of CSS)
+           Edit: Footer layout, social icons, links
+           ========================================== */
         footer {
             background: var(--ventara-dark);
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -1280,6 +1433,11 @@
             transform: translateY(-3px);
         }
         
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+        }
+        
         .footer-links h4 {
             font-size: 1rem;
             margin-bottom: 1.5rem;
@@ -1317,7 +1475,11 @@
             font-size: 0.875rem;
         }
 
-        /* RESPONSIVE */
+        /* ==========================================
+           SECTION 16: RESPONSIVE STYLES
+           Location: <style> (end of CSS)
+           Edit: Mobile breakpoints, layout changes
+           ========================================== */
         @media (max-width: 1024px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: flex; }
@@ -1359,9 +1521,12 @@
     </style>
 </head>
 <body>
-    <!-- LOADER WITH YOUR LOGO IMAGE -->
+    <!-- ==========================================
+         SECTION 17: LOADER HTML
+         Location: <body> (first element)
+         Edit: Logo image filename, text
+         ========================================== -->
     <div id="loader">
-        <!-- Replace '220594.png' with your actual image filename -->
         <img src="220594.png" alt="Ventara Logo" class="loader-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <div class="loader-logo" style="display: none; font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 700; color: var(--ventara-primary); letter-spacing: 0.3em; animation: pulse 2s infinite;">VENTARA</div>
         <div class="loader-bar">
@@ -1369,7 +1534,11 @@
         </div>
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- ==========================================
+         SECTION 18: NAVIGATION HTML
+         Location: <body> (after loader)
+         Edit: Logo text, nav links, admin button
+         ========================================== -->
     <nav id="navbar">
         <a href="#" class="logo">
             VENTARA
@@ -1391,7 +1560,6 @@
                 </svg>
             </button>
             
-            <!-- Admin Button -->
             <button class="nav-btn" onclick="openAdminLogin()" aria-label="Admin">
                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -1399,7 +1567,6 @@
                 </svg>
             </button>
             
-            <!-- Top Cart Button -->
             <button class="nav-btn" onclick="toggleCart()" aria-label="Cart">
                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M9 2L6 9H3l3 9h12l3-9h-3l-3-7H9z"></path>
@@ -1417,7 +1584,11 @@
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
+    <!-- ==========================================
+         SECTION 19: MOBILE MENU HTML
+         Location: <body> (after nav)
+         Edit: Mobile menu links
+         ========================================== -->
     <div class="mobile-menu" id="mobileMenu" style="display: none; position: fixed; top: 70px; left: 0; width: 100%; background: var(--ventara-dark); padding: 2rem; z-index: 999; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.5rem;">
             <li><a href="#collection" style="color: var(--ventara-light); text-decoration: none; font-size: 1.25rem;" onclick="toggleMobileMenu()">Collection</a></li>
@@ -1427,7 +1598,11 @@
         </ul>
     </div>
 
-    <!-- HERO -->
+    <!-- ==========================================
+         SECTION 20: HERO SECTION HTML
+         Location: <body> (after mobile menu)
+         Edit: Headline, tagline, button text
+         ========================================== -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -1455,7 +1630,11 @@
         </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
+    <!-- ==========================================
+         SECTION 21: PRODUCTS SECTION HTML
+         Location: <body> (after hero)
+         Edit: Section title, description
+         ========================================== -->
     <section id="collection" class="products-section">
         <div class="section-header">
             <span class="section-tag">Curated Selection</span>
@@ -1468,7 +1647,11 @@
         </div>
     </section>
 
-    <!-- NEWSLETTER WITH NAME FIELD -->
+    <!-- ==========================================
+         SECTION 22: NEWSLETTER HTML
+         Location: <body> (after products)
+         Edit: Headline, description, form fields
+         ========================================== -->
     <section class="newsletter" id="contact">
         <div class="newsletter-content">
             <span class="section-tag" style="color: rgba(255,255,255,0.8);">Stay Connected</span>
@@ -1485,7 +1668,11 @@
         </div>
     </section>
 
-    <!-- FLOATING CART BUTTON (WhatsApp Style) -->
+    <!-- ==========================================
+         SECTION 23: FLOATING CART BUTTON HTML
+         Location: <body> (after newsletter)
+         Edit: Position, size (match CSS)
+         ========================================== -->
     <button class="floating-cart-btn" onclick="toggleCart()" aria-label="Open Cart">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M9 2L6 9H3l3 9h12l3-9h-3l-3-7H9z"></path>
@@ -1495,7 +1682,11 @@
         <span class="floating-cart-badge" id="floatingCartBadge" style="display: none;">0</span>
     </button>
 
-    <!-- CART OVERLAY & SIDEBAR -->
+    <!-- ==========================================
+         SECTION 24: CART SIDEBAR HTML
+         Location: <body> (after floating cart)
+         Edit: Checkout buttons, shipping text
+         ========================================== -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -1559,12 +1750,15 @@
         </div>
     </div>
 
-    <!-- LOGIN MODAL WITH ERROR MESSAGE -->
+    <!-- ==========================================
+         SECTION 25: LOGIN MODAL HTML
+         Location: <body> (after cart)
+         Edit: Admin login text, error messages
+         ========================================== -->
     <div class="login-modal" id="loginModal">
         <div class="login-box">
             <h2>Admin Access</h2>
             
-            <!-- Error Message Container -->
             <div class="login-error" id="loginError">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -1590,7 +1784,11 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL WITH IMAGE UPLOAD -->
+    <!-- ==========================================
+         SECTION 26: ADMIN PANEL HTML
+         Location: <body> (after login modal)
+         Edit: Admin sections, product management
+         ========================================== -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <div style="display: flex; align-items: center; gap: 1rem;">
@@ -1604,7 +1802,6 @@
         </div>
 
         <div class="admin-content">
-            <!-- Products List -->
             <div class="admin-section active" id="adminProducts">
                 <div class="admin-card">
                     <h3>Manage Products</h3>
@@ -1617,7 +1814,6 @@
                 </div>
             </div>
 
-            <!-- Add Product with Image Upload -->
             <div class="admin-section" id="adminAdd">
                 <div class="admin-card">
                     <h3>Add New Product</h3>
@@ -1651,7 +1847,6 @@
                             <textarea id="newDescription" placeholder="Product description..."></textarea>
                         </div>
 
-                        <!-- IMAGE UPLOAD AREA -->
                         <div class="form-group">
                             <label>Product Image *</label>
                             <div class="image-upload-area" id="imageUploadArea" onclick="document.getElementById('newImageFile').click()">
@@ -1685,10 +1880,18 @@
         </div>
     </div>
 
-    <!-- TOAST CONTAINER -->
+    <!-- ==========================================
+         SECTION 27: TOAST CONTAINER HTML
+         Location: <body> (before footer)
+         Edit: Toast position (match CSS)
+         ========================================== -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- FOOTER -->
+    <!-- ==========================================
+         SECTION 28: FOOTER HTML
+         Location: <body> (end, before </body>)
+         Edit: Brand text, social links, footer links
+         ========================================== -->
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
@@ -1696,34 +1899,37 @@
                 <p>Premium contemporary fashion for the modern individual. 
                 Timeless design, uncompromising quality.</p>
                 <div class="social-links">
-    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" aria-label="Instagram">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-        </svg>
-    </a>
-    <a href="https://twitter.com/YOUR_HANDLE" target="_blank" aria-label="Twitter/X">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-    </a>
-    <a href="https://facebook.com/YOUR_HANDLE" target="_blank" aria-label="Facebook">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-    </a>
-    <a href="https://pinterest.com/YOUR_HANDLE" target="_blank" aria-label="Pinterest">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/>
-        </svg>
-    </a>
-    <!-- NEW TIKTOK ICON -->
-    <a href="https://tiktok.com/@ventara.brand" target="_blank" aria-label="TikTok">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-        </svg>
-    </a>
-</div>
-
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" aria-label="Instagram">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <!-- Twitter/X -->
+                    <a href="https://twitter.com/YOUR_HANDLE" target="_blank" aria-label="Twitter/X">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="https://facebook.com/YOUR_HANDLE" target="_blank" aria-label="Facebook">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <!-- Pinterest -->
+                    <a href="https://pinterest.com/YOUR_HANDLE" target="_blank" aria-label="Pinterest">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/>
+                        </svg>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/@ventara.brand" target="_blank" aria-label="TikTok">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
             <div class="footer-links">
                 <h4>Shop</h4>
@@ -1738,8 +1944,8 @@
                 <h4>Support</h4>
                 <ul>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#cart">Shipping</a></li>
-                    <li><a href="#cart">Returns</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
                     <li><a href="#">Size Guide</a></li>
                 </ul>
             </div>
@@ -1759,120 +1965,131 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
+    <!-- ==========================================
+         SECTION 29: JAVASCRIPT
+         Location: End of <body>, before </body>
+         Edit: CONFIG, products, functions
+         ========================================== -->
     <script>
         // ==========================================
-        // CONFIGURATION - CHANGE ADMIN CREDENTIALS HERE
+        // SUBSECTION 29.1: CONFIGURATION
+        // Location: <script> (top)
+        // Edit: Admin email/password, WhatsApp number
         // ==========================================
         
         const CONFIG = {
             // CHANGE THESE TO YOUR OWN ADMIN CREDENTIALS
             admin: {
-                email: 'admin@ventara.com',      // ← Change this to your email
-                password: 'admin123'              // ← Change this to your password
+                email: 'admin@ventara.com',      // ← Change this
+                password: 'admin123'              // ← Change this
             },
             
             brandName: 'VENTARA',
-            whatsappNumber: '09067654328',
-            
-            // EmailJS Configuration
-            emailjs: {
-                enabled: false,
-                publicKey: 'YOUR_PUBLIC_KEY_HERE',
-                serviceId: 'YOUR_SERVICE_ID_HERE',
-                templateId: 'YOUR_TEMPLATE_ID_HERE',
-                welcomeTemplateId: 'YOUR_WELCOME_TEMPLATE_ID_HERE',
-                adminEmail: 'ventara26@gmail.com'
-            },
+            whatsappNumber: '09067654328',       // ← Change this
             
             shipping: {
                 standard: 15,
                 freeThreshold: 800,
                 currency: '$'
-            },
-            
-            shopify: {
-                domain: 'your-store.myshopify.com',
-                enabled: false
             }
         };
 
         // ==========================================
-        // DATA
+        // SUBSECTION 29.2: YOUR 4 PRODUCTS WITH CAROUSEL
+        // Location: <script> (after CONFIG)
+        // Edit: Product names, prices, images, descriptions
         // ==========================================
         
+        let products = [
+            {
+                id: 1,
+                name: "DRIFT HALF-ZIP",           // ← EDIT: Your product name
+                category: "shirts",                // ← EDIT: shirts, pants, outerwear, accessories
+                price: 99.00,                      // ← EDIT: Your price
+                originalPrice: null,               // ← EDIT: Sale price or null
+                images: [                          // ← EDIT: Your image filenames (3 per product)
+                    "drift.jpg",
+                    "obsidian.jpg",
+                    "varsity.jpg"
+                ],
+                description: "Write your description here",  // ← EDIT: Product description
+                sizes: ["S", "M", "L", "XL"],      // ← EDIT: Available sizes
+                stock: 20,                         // ← EDIT: Stock quantity
+                badge: "NEW"                       // ← EDIT: "NEW", "SALE", "HOT", or null
+            },
+            {
+                id: 2,
+                name: "PRODUCT 2 NAME",
+                category: "pants",
+                price: 85.00,
+                originalPrice: null,
+                images: [
+                    "pron.jpg",
+                    "product2-image2.jpg",
+                    "product2-image3.jpg"
+                ],
+                description: "Write your description here",
+                sizes: ["28", "30", "32", "34"],
+                stock: 15,
+                badge: null
+            },
+            {
+                id: 3,
+                name: "PRODUCT 3 NAME",
+                category: "outerwear",
+                price: 150.00,
+                originalPrice: 200.00,
+                images: [
+                    "product3-image1.jpg",
+                    "product3-image2.jpg",
+                    "product3-image3.jpg"
+                ],
+                description: "Write your description here",
+                sizes: ["S", "M", "L", "XL"],
+                stock: 10,
+                badge: "SALE"
+            },
+            {
+                id: 4,
+                name: "PRODUCT 4 NAME",
+                category: "accessories",
+                price: 60.00,
+                originalPrice: null,
+                images: [
+                    "product4-image1.jpg",
+                    "product4-image2.jpg",
+                    "product4-image3.jpg"
+                ],
+                description: "Write your description here",
+                sizes: ["One Size"],
+                stock: 25,
+                badge: null
+            }
+        ];
+
+        // Clear old localStorage data
+        localStorage.removeItem('ventara_products');
+
         // ==========================================
-// YOUR 4 PRODUCTS - Edit these for all users to see
-// ==========================================
-
-let products = JSON.parse(localStorage.getItem('ventara_products')) || [
-
-    {
-        id: 1,
-        name: "DRIFT HALF-ZIP",
-        category: "shirts",
-        price: 72.87,
-        originalPrice: null,
-        image: "drift.jpg",
-        description: "The Ventara Drift Half-Zip is built for quiet confidence. Crafted from premium heavyweight fabric, it delivers a structured yet relaxed silhouette that holds shape while staying comfortable. The cool grey base paired with bold black sleeve accents creates a clean, futuristic edge.Minimal. Refined. Intentional.",
-        sizes: ["S", "M", "L", "XL"],
-        stock: 48,
-        badge: "NEW""HOT"
-    },
-    {
-        id: 2,
-        name: "OBSIDIAN SWEATSHIRT",
-        category: "outerwear",
-        price: 85.00,
-        originalPrice: 150.76,
-        image: "obsidian.jpg",
-        description: "The Ventara Obsidian Crest Sweatshirt is statement minimalism. From the front, it remains clean and controlled. From the back, the bold crest artwork commands attention — merging art and streetwear into one elevated piece. Designed for those who lead without speaking.",
-        sizes: ["28", "30", "32", "34"],
-        stock: 15,
-        badge: "SALE"
-    },
-    {
-        id: 3,
-        name: "APEX VARSITY",
-        category: "outerwear",
-        price: 150.00,
-        originalPrice: 200.00,
-        image: "varsity.jpg",
-        description: "The Ventara Apex Cropped Varsity blends power and precision. With a cropped structured cut, bold sleeve striping, and signature chest logo, this piece redefines modern athleisure for women. Tailored yet relaxed, it balances softness with strength. Confident. Elevated. Unapologetic.",
-        sizes: ["S", "M", "L", "XL"],
-        stock: 10,
-        badge: "SALE"
-    },
-    {
-        id: 4,
-        name: "PRON SWEATER",
-        category: "shirts",
-        price: 60.00,
-        originalPrice: null,
-        image: "pron.jpg",
-        description: "Precision in every stitch.The Ventara PRØN Structured Crew is built around clean architecture and controlled energy. Designed with a heavyweight premium fleece, it holds a sharp silhouette while delivering soft interior comfort.The PRØN identity mark sits boldly across the chest, engineered in raised or high-density print for a subtle 3D effect. Minimal from afar. Intentional up close. It’s disciplined streetwear.",
-        sizes: ["One Size"],
-        stock: 25,
-        badge: null
-    }
-];
-
-
+        // SUBSECTION 29.3: STATE VARIABLES
+        // Location: <script> (after products)
+        // Edit: None (system variables)
+        // ==========================================
+        
         let cart = JSON.parse(localStorage.getItem('ventara_cart')) || [];
         let currentUser = null;
+        let carouselStates = {};
 
         // ==========================================
-        // INITIALIZATION
+        // SUBSECTION 29.4: INITIALIZATION
+        // Location: <script> (after state)
+        // Edit: None (system setup)
         // ==========================================
         
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 2000);
-
-            if (CONFIG.emailjs.enabled) {
-                emailjs.init(CONFIG.emailjs.publicKey);
-            }
 
             renderProducts();
             updateCartUI();
@@ -1888,18 +2105,46 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         });
 
         // ==========================================
-        // PRODUCT FUNCTIONS
+        // SUBSECTION 29.5: PRODUCT RENDERING WITH CAROUSEL
+        // Location: <script> (after init)
+        // Edit: None (renders your products above)
         // ==========================================
-
+        
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = products.map(product => `
+            grid.innerHTML = products.map((product) => {
+                const hasMultipleImages = product.images && product.images.length > 1;
+                const images = product.images || [product.image];
+                
+                return `
                 <div class="product-card" onclick="viewProduct(${product.id})">
                     <div class="product-image">
                         ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                        <img src="${product.image || 'https://via.placeholder.com/400x500?text=No+Image'}" 
-                             alt="${product.name}" 
-                             onerror="this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                        
+                        ${hasMultipleImages ? `
+                            <div class="product-image-carousel" id="carousel-${product.id}">
+                                <div class="carousel-counter">1 / ${images.length}</div>
+                                <div class="carousel-slides" style="transform: translateX(0%)">
+                                    ${images.map((img, i) => `
+                                        <div class="carousel-slide">
+                                            <img src="${img}" alt="${product.name} - view ${i + 1}" onerror="this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                
+                                <button class="carousel-arrow prev" onclick="event.stopPropagation(); moveCarousel(${product.id}, -1)">‹</button>
+                                <button class="carousel-arrow next" onclick="event.stopPropagation(); moveCarousel(${product.id}, 1)">›</button>
+                                
+                                <div class="carousel-dots">
+                                    ${images.map((_, i) => `
+                                        <span class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="event.stopPropagation(); goToSlide(${product.id}, ${i})"></span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : `
+                            <img src="${images[0]}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                        `}
+                        
                         <div class="product-actions" onclick="event.stopPropagation()">
                             <button class="product-btn product-btn-secondary" onclick="quickView(${product.id})">
                                 Quick View
@@ -1918,26 +2163,79 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
                         </div>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        function viewProduct(id) {
-            const product = products.find(p => p.id === id);
-            showToast(`${product.name} - Full product view coming soon!`, 'info');
-        }
-
-        function quickView(id) {
-            const product = products.find(p => p.id === id);
-            showToast(`${product.name} - $${product.price}`, 'info');
+                `;
+            }).join('');
+            
+            products.forEach(product => {
+                if (product.images && product.images.length > 1) {
+                    carouselStates[product.id] = {
+                        currentSlide: 0,
+                        totalSlides: product.images.length
+                    };
+                }
+            });
         }
 
         // ==========================================
-        // CART FUNCTIONS
+        // SUBSECTION 29.6: CAROUSEL CONTROLS
+        // Location: <script> (after render)
+        // Edit: None (carousel functionality)
         // ==========================================
+        
+        function moveCarousel(productId, direction) {
+            const state = carouselStates[productId];
+            if (!state) return;
+            
+            state.currentSlide += direction;
+            
+            if (state.currentSlide < 0) {
+                state.currentSlide = state.totalSlides - 1;
+            } else if (state.currentSlide >= state.totalSlides) {
+                state.currentSlide = 0;
+            }
+            
+            updateCarousel(productId);
+        }
 
+        function goToSlide(productId, slideIndex) {
+            const state = carouselStates[productId];
+            if (!state) return;
+            
+            state.currentSlide = slideIndex;
+            updateCarousel(productId);
+        }
+
+        function updateCarousel(productId) {
+            const state = carouselStates[productId];
+            const carousel = document.getElementById(`carousel-${productId}`);
+            if (!carousel || !state) return;
+            
+            const slides = carousel.querySelector('.carousel-slides');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            const counter = carousel.querySelector('.carousel-counter');
+            
+            slides.style.transform = `translateX(-${state.currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === state.currentSlide);
+            });
+            
+            if (counter) {
+                counter.textContent = `${state.currentSlide + 1} / ${state.totalSlides}`;
+            }
+        }
+
+        // ==========================================
+        // SUBSECTION 29.7: CART FUNCTIONS
+        // Location: <script> (after carousel)
+        // Edit: None (cart functionality)
+        // ==========================================
+        
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existing = cart.find(item => item.id === productId);
+            
+            const cartImage = product.images ? product.images[0] : product.image;
             
             if (existing) {
                 existing.quantity++;
@@ -1946,7 +2244,7 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
                     id: product.id,
                     name: product.name,
                     price: product.price,
-                    image: product.image,
+                    image: cartImage,
                     quantity: 1
                 });
             }
@@ -1988,7 +2286,6 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Update both badges
             badge.textContent = totalItems;
             badge.style.display = totalItems > 0 ? 'flex' : 'none';
             
@@ -2068,9 +2365,11 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         }
 
         // ==========================================
-        // CHECKOUT FUNCTIONS
+        // SUBSECTION 29.8: CHECKOUT FUNCTIONS
+        // Location: <script> (after cart)
+        // Edit: WhatsApp message format
         // ==========================================
-
+        
         function checkout(method) {
             if (cart.length === 0) {
                 showToast('Your cart is empty!', 'error');
@@ -2082,15 +2381,8 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             const total = subtotal + shipping;
 
             if (method === 'shopify') {
-                if (!CONFIG.shopify.enabled) {
-                    showToast('Shopify integration coming soon! Use WhatsApp for now.', 'info');
-                    return;
-                }
-                
-                const items = cart.map(item => `${item.id}:${item.quantity}`).join(',');
-                const url = `https://${CONFIG.shopify.domain}/cart/${items}`;
-                window.open(url, '_blank');
-                showToast('Redirecting to Shopify...', 'success');
+                showToast('Shopify integration coming soon! Use WhatsApp for now.', 'info');
+                return;
                 
             } else if (method === 'whatsapp') {
                 let message = `*NEW ORDER - VENTARA*%0A%0A`;
@@ -2124,9 +2416,11 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         }
 
         // ==========================================
-        // NEWSLETTER WITH NAME & EMAIL
+        // SUBSECTION 29.9: NEWSLETTER FUNCTION
+        // Location: <script> (after checkout)
+        // Edit: None (form handling)
         // ==========================================
-
+        
         async function handleSubscribe(e) {
             e.preventDefault();
             const name = document.getElementById('subscriberName').value;
@@ -2152,44 +2446,7 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             subscribers.push(subscriber);
             localStorage.setItem('ventara_subscribers', JSON.stringify(subscribers));
             
-            // Send welcome email to subscriber
-            if (CONFIG.emailjs.enabled) {
-                try {
-                    // Send welcome email to subscriber
-                    await emailjs.send(
-                        CONFIG.emailjs.serviceId,
-                        CONFIG.emailjs.welcomeTemplateId,
-                        {
-                            to_email: email,
-                            to_name: name,
-                            from_name: 'Ventara',
-                            from_email: CONFIG.emailjs.adminEmail,
-                            reply_to: CONFIG.emailjs.adminEmail
-                        }
-                    );
-                    
-                    // Send notification to admin
-                    await emailjs.send(
-                        CONFIG.emailjs.serviceId,
-                        CONFIG.emailjs.templateId,
-                        {
-                            to_email: CONFIG.emailjs.adminEmail,
-                            subscriber_name: name,
-                            subscriber_email: email,
-                            subscriber_count: subscribers.length,
-                            date: new Date().toLocaleString()
-                        }
-                    );
-                    
-                    console.log('Emails sent successfully');
-                } catch (error) {
-                    console.error('Email failed:', error);
-                }
-            } else {
-                console.log('New subscriber:', subscriber);
-                console.log('Full list:', subscribers);
-                console.log('To enable emails, configure EmailJS in CONFIG');
-            }
+            console.log('New subscriber:', subscriber);
             
             messageEl.innerHTML = `
                 ✅ Welcome to Ventara, ${name}! <br>
@@ -2207,14 +2464,15 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         }
 
         // ==========================================
-        // ADMIN PANEL WITH LOGIN ERROR HANDLING
+        // SUBSECTION 29.10: ADMIN PANEL FUNCTIONS
+        // Location: <script> (after newsletter)
+        // Edit: Admin credentials check
         // ==========================================
-
+        
         function openAdminLogin() {
             if (currentUser) {
                 openAdminPanel();
             } else {
-                // Clear any previous error and form data
                 hideLoginError();
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
@@ -2228,7 +2486,6 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             errorText.textContent = message || 'Invalid email or password';
             errorDiv.classList.add('show');
             
-            // Shake animation on the login box
             const loginBox = document.querySelector('.login-box');
             loginBox.style.animation = 'shake 0.5s';
             setTimeout(() => {
@@ -2241,23 +2498,21 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             errorDiv.classList.remove('show');
         }
 
-        // Add shake animation
-        const style = document.createElement('style');
-        style.textContent = `
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `
             @keyframes shake {
                 0%, 100% { transform: translateX(0); }
                 10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
                 20%, 40%, 60%, 80% { transform: translateX(5px); }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(shakeStyle);
 
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Check against CONFIG credentials
             if (email === CONFIG.admin.email && password === CONFIG.admin.password) {
                 currentUser = { email };
                 hideLoginError();
@@ -2265,7 +2520,6 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
                 openAdminPanel();
                 showToast('Welcome to Admin Panel', 'success');
             } else {
-                // Show specific error messages
                 if (email !== CONFIG.admin.email && password !== CONFIG.admin.password) {
                     showLoginError('Invalid email and password');
                 } else if (email !== CONFIG.admin.email) {
@@ -2297,7 +2551,6 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             event.target.classList.add('active');
         }
 
-        // IMAGE UPLOAD HANDLER
         function handleImageUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -2318,7 +2571,6 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
                 uploadArea.classList.add('has-image');
                 hiddenInput.value = e.target.result;
                 
-                // Change text to show success
                 uploadArea.querySelector('p').textContent = file.name;
             };
             reader.readAsDataURL(file);
@@ -2337,7 +2589,7 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             container.innerHTML = products.map(p => `
                 <div class="product-list-item" onclick="editProduct(${p.id})" style="cursor: pointer;">
                     <div class="product-thumb">
-                        <img src="${p.image || 'https://via.placeholder.com/80'}" alt="${p.name}">
+                        <img src="${p.images ? p.images[0] : p.image}" alt="${p.name}">
                     </div>
                     <div>
                         <div style="font-weight: 600;">${p.name}</div>
@@ -2373,11 +2625,11 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
                 image: imageValue,
                 sizes: document.getElementById('newSizes').value.split(',').map(s => s.trim()).filter(s => s),
                 stock: parseInt(document.getElementById('newStock').value) || 0,
-                badge: null
+                badge: null,
+                addedAt: new Date().toISOString()
             };
             
             products.push(newProduct);
-            localStorage.setItem('ventara_products', JSON.stringify(products));
             
             renderProducts();
             renderAdminProducts();
@@ -2390,9 +2642,11 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         function editProduct(id) {
             const product = products.find(p => p.id === id);
             const newName = prompt('Edit product name:', product.name);
+            
             if (newName !== null && newName !== '') {
                 product.name = newName;
-                localStorage.setItem('ventara_products', JSON.stringify(products));
+                product.updatedAt = new Date().toISOString();
+                
                 renderProducts();
                 renderAdminProducts();
                 showToast('Product updated', 'success');
@@ -2402,15 +2656,26 @@ let products = JSON.parse(localStorage.getItem('ventara_products')) || [
         function deleteProduct(id) {
             if (!confirm('Are you sure you want to delete this product?')) return;
             products = products.filter(p => p.id !== id);
-            localStorage.setItem('ventara_products', JSON.stringify(products));
             renderProducts();
             renderAdminProducts();
             showToast('Product deleted', 'success');
         }
 
         // ==========================================
-        // UTILITY FUNCTIONS
+        // SUBSECTION 29.11: UTILITY FUNCTIONS
+        // Location: <script> (end)
+        // Edit: None (helper functions)
         // ==========================================
+        
+        function viewProduct(id) {
+            const product = products.find(p => p.id === id);
+            showToast(`${product.name} - Full product view coming soon!`, 'info');
+        }
+
+        function quickView(id) {
+            const product = products.find(p => p.id === id);
+            showToast(`${product.name} - $${product.price}`, 'info');
+        }
 
         function toggleSearch() {
             const query = prompt('Search products:');
