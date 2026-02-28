@@ -11,55 +11,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- EmailJS for sending subscriber emails -->
+    <!-- EmailJS for sending emails -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <style>
-        /* ============================================
-           VENTARA CUSTOMIZATION GUIDE
-           ============================================
-           
-           COLORS: Change these CSS variables to rebrand
-           --ventara-primary: Main brand color (currently cyan)
-           --ventara-accent: Secondary color (currently coral)
-           --ventara-dark: Dark backgrounds
-           --ventara-light: Light text
-        ============================================ */
-        
         :root {
-            /* BRAND COLORS - EDIT THESE TO CHANGE THEME */
-            --ventara-primary: #06b6d4;      /* Cyan - Main brand color */
-            --ventara-primary-dark: #0891b2;  /* Darker cyan for hover */
-            --ventara-accent: #ff6b6b;        /* Coral - Accent color */
-            --ventara-dark: #0f172a;          /* Dark navy - Backgrounds */
-            --ventara-darker: #020617;        /* Darker navy */
-            --ventara-gray: #1e293b;          /* Gray for cards */
-            --ventara-light: #f8fafc;         /* Light text */
-            --ventara-muted: #94a3b8;         /* Muted text */
-            
-            /* FUNCTIONAL COLORS */
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
-            
-            /* SHIPPING CONFIG - EDIT THESE */
-            --shipping-threshold: 800;        /* Free shipping threshold ($) */
-            --standard-shipping: 15;          /* Standard shipping cost ($) */
-            
-            /* ANIMATIONS */
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: var(--ventara-darker);
@@ -76,10 +49,8 @@
         /* LOADER */
         #loader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: var(--ventara-darker);
             display: flex;
             flex-direction: column;
@@ -88,12 +59,8 @@
             z-index: 10000;
             transition: opacity 0.6s, visibility 0.6s;
         }
-
-        #loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
+        #loader.hidden { opacity: 0; visibility: hidden; }
+        
         .loader-logo {
             font-family: 'Playfair Display', serif;
             font-size: 4rem;
@@ -102,7 +69,7 @@
             letter-spacing: 0.3em;
             animation: pulse 2s infinite;
         }
-
+        
         .loader-bar {
             width: 200px;
             height: 3px;
@@ -111,7 +78,7 @@
             border-radius: 3px;
             overflow: hidden;
         }
-
+        
         .loader-progress {
             height: 100%;
             background: var(--ventara-primary);
@@ -124,7 +91,7 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
-
+        
         @keyframes loadProgress {
             to { width: 100%; }
         }
@@ -142,7 +109,7 @@
             transition: var(--transition);
             border-bottom: 1px solid transparent;
         }
-
+        
         nav.scrolled {
             background: rgba(2, 6, 23, 0.95);
             backdrop-filter: blur(20px);
@@ -161,7 +128,7 @@
             align-items: center;
             gap: 0.5rem;
         }
-
+        
         .logo-dot {
             width: 8px;
             height: 8px;
@@ -169,7 +136,7 @@
             border-radius: 50%;
             animation: blink 2s infinite;
         }
-
+        
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
@@ -180,7 +147,7 @@
             gap: 3rem;
             list-style: none;
         }
-
+        
         .nav-links a {
             color: var(--ventara-muted);
             text-decoration: none;
@@ -189,19 +156,16 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             transition: color 0.3s;
-            position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--ventara-primary);
-        }
+        
+        .nav-links a:hover { color: var(--ventara-primary); }
 
         .nav-actions {
             display: flex;
             gap: 1.5rem;
             align-items: center;
         }
-
+        
         .nav-btn {
             background: none;
             border: none;
@@ -212,12 +176,12 @@
             transition: var(--transition);
             position: relative;
         }
-
+        
         .nav-btn:hover {
             background: rgba(255,255,255,0.1);
             color: var(--ventara-primary);
         }
-
+        
         .cart-badge {
             position: absolute;
             top: 0;
@@ -233,7 +197,7 @@
             justify-content: center;
             font-weight: 700;
         }
-
+        
         .mobile-menu-btn {
             display: none;
             flex-direction: column;
@@ -242,7 +206,7 @@
             border: none;
             cursor: pointer;
         }
-
+        
         .mobile-menu-btn span {
             width: 25px;
             height: 2px;
@@ -260,25 +224,23 @@
             padding: 8rem 3rem 4rem;
             overflow: hidden;
         }
-
+        
         .hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
         }
-
+        
         .hero-content {
             position: relative;
             z-index: 1;
             text-align: center;
             max-width: 900px;
         }
-
+        
         .hero-tag {
             display: inline-flex;
             align-items: center;
@@ -293,18 +255,18 @@
             margin-bottom: 2rem;
             color: var(--ventara-primary);
         }
-
+        
         .hero h1 {
             font-size: clamp(3rem, 8vw, 5.5rem);
             margin-bottom: 1.5rem;
             line-height: 1.1;
         }
-
+        
         .hero h1 span {
             color: var(--ventara-primary);
             font-style: italic;
         }
-
+        
         .hero p {
             font-size: 1.25rem;
             color: var(--ventara-muted);
@@ -312,7 +274,7 @@
             margin: 0 auto 3rem;
             line-height: 1.8;
         }
-
+        
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
@@ -337,35 +299,35 @@
             align-items: center;
             gap: 0.75rem;
         }
-
+        
         .btn-primary {
             background: var(--ventara-primary);
             color: white;
             box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
         }
-
+        
         .btn-primary:hover {
             background: var(--ventara-primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4);
         }
-
+        
         .btn-secondary {
             background: transparent;
             color: var(--ventara-light);
             border: 1px solid rgba(255,255,255,0.2);
         }
-
+        
         .btn-secondary:hover {
             background: var(--ventara-light);
             color: var(--ventara-dark);
         }
-
+        
         .btn-accent {
             background: var(--ventara-accent);
             color: white;
         }
-
+        
         .btn-accent:hover {
             background: #ff5252;
             transform: translateY(-2px);
@@ -377,12 +339,12 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
+        
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
         }
-
+        
         .section-tag {
             color: var(--ventara-primary);
             font-size: 0.85rem;
@@ -392,12 +354,12 @@
             display: block;
             margin-bottom: 1rem;
         }
-
+        
         .section-header h2 {
             font-size: clamp(2rem, 4vw, 3rem);
             margin-bottom: 1rem;
         }
-
+        
         .section-header p {
             color: var(--ventara-muted);
             max-width: 600px;
@@ -412,13 +374,13 @@
             margin: 0 1.5rem;
             max-width: calc(100% - 3rem);
         }
-
+        
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
-
+        
         .product-card {
             background: var(--ventara-gray);
             border-radius: 1.5rem;
@@ -427,13 +389,13 @@
             border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
         }
-
+        
         .product-card:hover {
             transform: translateY(-10px);
             border-color: var(--ventara-primary);
             box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
         }
-
+        
         .product-image {
             aspect-ratio: 3/4;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -443,18 +405,18 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s;
         }
-
+        
         .product-card:hover .product-image img {
             transform: scale(1.05);
         }
-
+        
         .product-badge {
             position: absolute;
             top: 1rem;
@@ -468,7 +430,7 @@
             text-transform: uppercase;
             z-index: 2;
         }
-
+        
         .product-actions {
             position: absolute;
             bottom: 1rem;
@@ -480,12 +442,12 @@
             transform: translateY(20px);
             transition: all 0.4s;
         }
-
+        
         .product-card:hover .product-actions {
             opacity: 1;
             transform: translateY(0);
         }
-
+        
         .product-btn {
             flex: 1;
             padding: 0.875rem;
@@ -496,29 +458,29 @@
             font-size: 0.85rem;
             transition: var(--transition);
         }
-
+        
         .product-btn-primary {
             background: var(--ventara-primary);
             color: white;
         }
-
+        
         .product-btn-primary:hover {
             background: var(--ventara-primary-dark);
         }
-
+        
         .product-btn-secondary {
             background: rgba(255,255,255,0.9);
             color: var(--ventara-dark);
         }
-
+        
         .product-btn-secondary:hover {
             background: white;
         }
-
+        
         .product-info {
             padding: 1.5rem;
         }
-
+        
         .product-category {
             color: var(--ventara-primary);
             font-size: 0.75rem;
@@ -527,25 +489,25 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
-
+        
         .product-name {
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
             font-family: 'Playfair Display', serif;
         }
-
+        
         .product-price {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
+        
         .price-current {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--ventara-primary);
         }
-
+        
         .price-original {
             font-size: 1rem;
             color: var(--ventara-muted);
@@ -566,12 +528,12 @@
             visibility: hidden;
             transition: all 0.4s;
         }
-
+        
         .cart-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-
+        
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -586,11 +548,11 @@
             flex-direction: column;
             border-left: 1px solid rgba(255,255,255,0.1);
         }
-
+        
         .cart-sidebar.active {
             right: 0;
         }
-
+        
         .cart-header {
             padding: 2rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -598,14 +560,14 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .cart-header h2 {
             font-size: 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
-
+        
         .cart-close {
             background: none;
             border: none;
@@ -615,24 +577,24 @@
             border-radius: 50%;
             transition: var(--transition);
         }
-
+        
         .cart-close:hover {
             background: rgba(255,255,255,0.1);
             transform: rotate(90deg);
         }
-
+        
         .cart-items {
             flex: 1;
             overflow-y: auto;
             padding: 1.5rem 2rem;
         }
-
+        
         .cart-empty {
             text-align: center;
             padding: 4rem 2rem;
             color: var(--ventara-muted);
         }
-
+        
         .cart-item {
             display: flex;
             gap: 1rem;
@@ -642,7 +604,7 @@
             margin-bottom: 1rem;
             border: 1px solid rgba(255,255,255,0.05);
         }
-
+        
         .cart-item-image {
             width: 100px;
             height: 120px;
@@ -651,34 +613,34 @@
             overflow: hidden;
             flex-shrink: 0;
         }
-
+        
         .cart-item-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+        
         .cart-item-details {
             flex: 1;
         }
-
+        
         .cart-item-details h4 {
             font-size: 1rem;
             margin-bottom: 0.25rem;
         }
-
+        
         .cart-item-details p {
             color: var(--ventara-muted);
             font-size: 0.875rem;
             margin-bottom: 0.75rem;
         }
-
+        
         .cart-item-price {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--ventara-primary);
         }
-
+        
         .quantity-control {
             display: flex;
             align-items: center;
@@ -688,7 +650,7 @@
             width: fit-content;
             margin-top: 0.75rem;
         }
-
+        
         .quantity-btn {
             width: 36px;
             height: 36px;
@@ -699,17 +661,17 @@
             font-size: 1.25rem;
             transition: var(--transition);
         }
-
+        
         .quantity-btn:hover {
             background: var(--ventara-primary);
         }
-
+        
         .quantity-value {
             width: 40px;
             text-align: center;
             font-weight: 600;
         }
-
+        
         .remove-btn {
             background: none;
             border: none;
@@ -719,32 +681,32 @@
             margin-left: auto;
             transition: color 0.3s;
         }
-
+        
         .remove-btn:hover {
             color: var(--ventara-accent);
         }
-
+        
         .cart-footer {
             padding: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             background: var(--ventara-gray);
         }
-
+        
         .cart-summary {
             margin-bottom: 1.5rem;
         }
-
+        
         .summary-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.75rem;
             font-size: 0.95rem;
         }
-
+        
         .summary-row.discount {
             color: var(--ventara-accent);
         }
-
+        
         .summary-row.total {
             font-size: 1.25rem;
             font-weight: 700;
@@ -753,7 +715,7 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             margin-top: 0.75rem;
         }
-
+        
         .free-shipping-badge {
             background: rgba(16, 185, 129, 0.1);
             color: var(--success);
@@ -764,17 +726,17 @@
             margin-bottom: 1rem;
             display: none;
         }
-
+        
         .free-shipping-badge.active {
             display: block;
         }
-
+        
         .checkout-options {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
         }
-
+        
         .checkout-btn {
             width: 100%;
             padding: 1.25rem;
@@ -789,26 +751,26 @@
             justify-content: center;
             gap: 0.75rem;
         }
-
+        
         .checkout-btn:hover {
             transform: translateY(-2px);
         }
-
+        
         .checkout-shopify {
             background: #96bf48;
             color: white;
         }
-
+        
         .checkout-shopify:hover {
             background: #85a93f;
             box-shadow: 0 10px 30px rgba(150, 191, 72, 0.3);
         }
-
+        
         .checkout-whatsapp {
             background: #25d366;
             color: white;
         }
-
+        
         .checkout-whatsapp:hover {
             background: #128c7e;
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
@@ -823,7 +785,7 @@
             position: relative;
             overflow: hidden;
         }
-
+        
         .newsletter::before {
             content: '';
             position: absolute;
@@ -833,31 +795,39 @@
             height: 100%;
             background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-
+        
         .newsletter-content {
             position: relative;
             z-index: 1;
             text-align: center;
             padding: 4rem 2rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
-
+        
         .newsletter h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
-
+        
         .newsletter p {
             margin-bottom: 2rem;
             opacity: 0.9;
         }
-
+        
         .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form-row {
             display: flex;
             gap: 1rem;
         }
-
+        
         .newsletter-form input {
             flex: 1;
             padding: 1rem 1.5rem;
@@ -867,13 +837,13 @@
             color: white;
             font-size: 1rem;
         }
-
+        
         .newsletter-form input::placeholder {
             color: rgba(255,255,255,0.7);
         }
-
+        
         .newsletter-form button {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
             border: none;
             background: var(--ventara-dark);
@@ -882,10 +852,12 @@
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
+            width: 100%;
         }
-
+        
         .newsletter-form button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            background: var(--ventara-darker);
         }
 
         /* ADMIN PANEL */
@@ -900,11 +872,11 @@
             z-index: 3000;
             overflow-y: auto;
         }
-
+        
         .admin-panel.active {
             display: block;
         }
-
+        
         .admin-header {
             background: var(--ventara-dark);
             padding: 1rem 2rem;
@@ -916,12 +888,12 @@
             z-index: 100;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
+        
         .admin-nav {
             display: flex;
             gap: 0.5rem;
         }
-
+        
         .admin-nav button {
             background: none;
             border: none;
@@ -932,33 +904,33 @@
             transition: var(--transition);
             font-size: 0.95rem;
         }
-
+        
         .admin-nav button.active,
         .admin-nav button:hover {
             color: var(--ventara-light);
             background: rgba(255,255,255,0.1);
         }
-
+        
         .admin-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-
+        
         .admin-section {
             display: none;
         }
-
+        
         .admin-section.active {
             display: block;
             animation: fadeIn 0.3s;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .admin-card {
             background: var(--ventara-gray);
             border-radius: 1rem;
@@ -966,29 +938,29 @@
             margin-bottom: 2rem;
             border: 1px solid rgba(255,255,255,0.05);
         }
-
+        
         .admin-card h3 {
             margin-bottom: 1.5rem;
             font-size: 1.25rem;
         }
-
+        
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
         }
-
+        
         .form-group {
             margin-bottom: 1.5rem;
         }
-
+        
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-size: 0.875rem;
             color: var(--ventara-muted);
         }
-
+        
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -1001,39 +973,75 @@
             font-size: 1rem;
             transition: var(--transition);
         }
-
+        
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--ventara-primary);
         }
-
+        
         .form-group textarea {
             resize: vertical;
             min-height: 100px;
         }
-
-        .image-upload {
+        
+        /* IMAGE UPLOAD STYLES */
+        .image-upload-area {
             border: 2px dashed rgba(255,255,255,0.2);
             border-radius: 1rem;
             padding: 2rem;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
-
-        .image-upload:hover {
+        
+        .image-upload-area:hover {
             border-color: var(--ventara-primary);
             background: rgba(6, 182, 212, 0.05);
         }
-
+        
+        .image-upload-area.has-image {
+            border-style: solid;
+            border-color: var(--ventara-primary);
+        }
+        
+        .image-upload-area input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .upload-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .upload-preview.show {
+            display: block;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
         .product-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-
+        
         .product-list-item {
             display: grid;
             grid-template-columns: 80px 2fr 1fr 1fr auto;
@@ -1044,7 +1052,7 @@
             border-radius: 0.75rem;
             border: 1px solid rgba(255,255,255,0.05);
         }
-
+        
         .product-thumb {
             width: 80px;
             height: 80px;
@@ -1052,7 +1060,7 @@
             border-radius: 0.5rem;
             overflow: hidden;
         }
-
+        
         .product-thumb img {
             width: 100%;
             height: 100%;
@@ -1073,11 +1081,11 @@
             z-index: 4000;
             backdrop-filter: blur(10px);
         }
-
+        
         .login-modal.active {
             display: flex;
         }
-
+        
         .login-box {
             background: var(--ventara-gray);
             padding: 3rem;
@@ -1086,7 +1094,7 @@
             max-width: 420px;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
+        
         .login-box h2 {
             text-align: center;
             margin-bottom: 2rem;
@@ -1102,7 +1110,7 @@
             flex-direction: column;
             gap: 0.75rem;
         }
-
+        
         .toast {
             background: var(--ventara-gray);
             color: var(--ventara-light);
@@ -1117,16 +1125,16 @@
             transition: all 0.4s;
             backdrop-filter: blur(10px);
         }
-
+        
         .toast.show {
             transform: translateX(0);
             opacity: 1;
         }
-
+        
         .toast.success {
             border-color: var(--ventara-primary);
         }
-
+        
         .toast-icon {
             width: 24px;
             height: 24px;
@@ -1144,7 +1152,7 @@
             border-top: 1px solid rgba(255,255,255,0.05);
             padding: 4rem 3rem 2rem;
         }
-
+        
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -1152,24 +1160,24 @@
             max-width: 1400px;
             margin: 0 auto 4rem;
         }
-
+        
         .footer-brand h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
             font-family: 'Playfair Display', serif;
         }
-
+        
         .footer-brand p {
             color: var(--ventara-muted);
             margin-bottom: 1.5rem;
             line-height: 1.8;
         }
-
+        
         .social-links {
             display: flex;
             gap: 1rem;
         }
-
+        
         .social-links a {
             width: 44px;
             height: 44px;
@@ -1183,39 +1191,39 @@
             transition: var(--transition);
             border: 1px solid rgba(255,255,255,0.1);
         }
-
+        
         .social-links a:hover {
             background: var(--ventara-primary);
             border-color: var(--ventara-primary);
             transform: translateY(-3px);
         }
-
+        
         .footer-links h4 {
             font-size: 1rem;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
-
+        
         .footer-links ul {
             list-style: none;
         }
-
+        
         .footer-links li {
             margin-bottom: 0.875rem;
         }
-
+        
         .footer-links a {
             color: var(--ventara-muted);
             text-decoration: none;
             transition: var(--transition);
         }
-
+        
         .footer-links a:hover {
             color: var(--ventara-primary);
             padding-left: 5px;
         }
-
+        
         .footer-bottom {
             max-width: 1400px;
             margin: 0 auto;
@@ -1229,54 +1237,28 @@
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .newsletter-form-row { flex-direction: column; }
         }
-
+        
         @media (max-width: 768px) {
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .hero {
-                padding: 6rem 1.5rem 3rem;
-            }
-
+            section { padding: 4rem 1.5rem; }
+            .hero { padding: 6rem 1.5rem 3rem; }
             .products-section,
             .newsletter {
                 margin: 0 1rem;
                 max-width: calc(100% - 2rem);
             }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .products-grid { grid-template-columns: 1fr; }
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-
-            .cart-sidebar {
-                max-width: 100%;
-            }
-
-            .product-list-item {
-                grid-template-columns: 60px 1fr auto;
-            }
+            .cart-sidebar { max-width: 100%; }
+            .product-list-item { grid-template-columns: 60px 1fr auto; }
+            .newsletter-form-row { flex-direction: column; }
         }
     </style>
 </head>
@@ -1379,19 +1361,22 @@
         </div>
         
         <div class="products-grid" id="productsGrid">
-            <!-- Products will be rendered here by JavaScript -->
+            <!-- Products rendered by JavaScript -->
         </div>
     </section>
 
-    <!-- NEWSLETTER -->
+    <!-- NEWSLETTER WITH NAME FIELD -->
     <section class="newsletter" id="contact">
         <div class="newsletter-content">
             <span class="section-tag" style="color: rgba(255,255,255,0.8);">Stay Connected</span>
             <h2>Join the Ventara Circle</h2>
             <p>Subscribe for exclusive access to new collections, private sales, and styling insights.</p>
             <form class="newsletter-form" id="newsletterForm" onsubmit="handleSubscribe(event)">
-                <input type="email" id="subscriberEmail" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
+                <div class="newsletter-form-row">
+                    <input type="text" id="subscriberName" placeholder="Your Name" required>
+                    <input type="email" id="subscriberEmail" placeholder="Your Email Address" required>
+                </div>
+                <button type="submit">Subscribe Now</button>
             </form>
             <p id="subscribeMessage" style="margin-top: 1rem; font-size: 0.875rem; display: none;"></p>
         </div>
@@ -1481,7 +1466,7 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- ADMIN PANEL WITH IMAGE UPLOAD -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <div style="display: flex; align-items: center; gap: 1rem;">
@@ -1508,7 +1493,7 @@
                 </div>
             </div>
 
-            <!-- Add Product -->
+            <!-- Add Product with Image Upload -->
             <div class="admin-section" id="adminAdd">
                 <div class="admin-card">
                     <h3>Add New Product</h3>
@@ -1542,9 +1527,17 @@
                             <textarea id="newDescription" placeholder="Product description..."></textarea>
                         </div>
 
+                        <!-- IMAGE UPLOAD AREA -->
                         <div class="form-group">
-                            <label>Image URL</label>
-                            <input type="url" id="newImage" placeholder="https://example.com/image.jpg (or leave empty)">
+                            <label>Product Image *</label>
+                            <div class="image-upload-area" id="imageUploadArea" onclick="document.getElementById('newImageFile').click()">
+                                <input type="file" id="newImageFile" accept="image/*" onchange="handleImageUpload(event)" required>
+                                <div class="upload-icon">📷</div>
+                                <p>Click to upload image or drag and drop</p>
+                                <p style="font-size: 0.875rem; opacity: 0.7;">Supports: JPG, PNG, WEBP</p>
+                                <img id="uploadPreview" class="upload-preview" alt="Preview">
+                            </div>
+                            <input type="hidden" id="newImage" value="">
                         </div>
 
                         <div class="form-grid">
@@ -1560,7 +1553,7 @@
 
                         <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                             <button type="submit" class="btn btn-primary">Add Product</button>
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('addProductForm').reset()">Clear</button>
+                            <button type="button" class="btn btn-secondary" onclick="resetProductForm()">Clear</button>
                         </div>
                     </form>
                 </div>
@@ -1619,54 +1612,41 @@
         </div>
     </footer>
 
-    <!-- ============================================
-         JAVASCRIPT CONFIGURATION & FUNCTIONS
-         ============================================ -->
+    <!-- JAVASCRIPT -->
     <script>
         // ==========================================
-        // CONFIGURATION - EDIT THESE VALUES
+        // CONFIGURATION
         // ==========================================
         
         const CONFIG = {
-            // BRAND INFO
             brandName: 'VENTARA',
+            whatsappNumber: '09067654328',
             
-            // CONTACT INFO
-            whatsappNumber: '09067654328',  // Your WhatsApp Business number
-            
-            // EMAIL SETTINGS - For subscriber notifications
-            // To set up EmailJS (FREE):
-            // 1. Go to https://www.emailjs.com/
-            // 2. Create account
-            // 3. Add Email Service (Gmail, Outlook, etc.)
-            // 4. Create Email Template
-            // 5. Replace these values:
+            // EmailJS Configuration
             emailjs: {
-                enabled: false,  // Set to true after configuring EmailJS
+                enabled: false,
                 publicKey: 'YOUR_PUBLIC_KEY_HERE',
                 serviceId: 'YOUR_SERVICE_ID_HERE',
                 templateId: 'YOUR_TEMPLATE_ID_HERE',
-                recipientEmail: 'ventara26@gmail.com'  // Where subscriber list is sent
+                welcomeTemplateId: 'YOUR_WELCOME_TEMPLATE_ID_HERE',
+                adminEmail: 'ventara26@gmail.com'
             },
             
-            // SHIPPING SETTINGS
             shipping: {
-                standard: 15,           // Standard shipping cost ($)
-                freeThreshold: 800,     // Free shipping threshold ($)
+                standard: 15,
+                freeThreshold: 800,
                 currency: '$'
             },
             
-            // SHOPIFY SETTINGS
             shopify: {
-                domain: 'your-store.myshopify.com',  // Replace with your store
-                enabled: false  // Set to true when ready
+                domain: 'your-store.myshopify.com',
+                enabled: false
             }
         };
 
         // ==========================================
-        // PRODUCT DATA - EASY TO EDIT
+        // DATA
         // ==========================================
-        // To add/edit products, modify this array or use the Admin Panel
         
         let products = JSON.parse(localStorage.getItem('ventara_products')) || [
             {
@@ -1743,7 +1723,6 @@
             }
         ];
 
-        // Cart State
         let cart = JSON.parse(localStorage.getItem('ventara_cart')) || [];
         let currentUser = null;
 
@@ -1752,21 +1731,17 @@
         // ==========================================
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Hide loader
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 2000);
 
-            // Initialize EmailJS (if configured)
             if (CONFIG.emailjs.enabled) {
                 emailjs.init(CONFIG.emailjs.publicKey);
             }
 
-            // Render products
             renderProducts();
             updateCartUI();
 
-            // Navbar scroll effect
             window.addEventListener('scroll', () => {
                 const nav = document.getElementById('navbar');
                 if (window.scrollY > 50) {
@@ -1877,15 +1852,12 @@
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Update badge
             badge.textContent = totalItems;
             badge.style.display = totalItems > 0 ? 'flex' : 'none';
             
-            // Shipping calculation
             const shipping = subtotal >= CONFIG.shipping.freeThreshold ? 0 : CONFIG.shipping.standard;
             const total = subtotal + shipping;
             
-            // Show/hide free shipping badge
             const freeShippingBadge = document.getElementById('freeShippingBadge');
             const discountRow = document.getElementById('discountRow');
             
@@ -1897,7 +1869,6 @@
                 discountRow.style.display = 'none';
             }
             
-            // Render items
             if (cart.length === 0) {
                 itemsContainer.innerHTML = `
                     <div class="cart-empty">
@@ -1934,7 +1905,6 @@
                     </div>
                 `).join('');
                 
-                // Update summary
                 document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
                 document.getElementById('cartShipping').textContent = shipping === 0 ? 'FREE' : `$${shipping}`;
                 document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
@@ -1972,20 +1942,17 @@
             const total = subtotal + shipping;
 
             if (method === 'shopify') {
-                // Shopify checkout
                 if (!CONFIG.shopify.enabled) {
                     showToast('Shopify integration coming soon! Use WhatsApp for now.', 'info');
                     return;
                 }
                 
-                // Build Shopify cart URL
                 const items = cart.map(item => `${item.id}:${item.quantity}`).join(',');
                 const url = `https://${CONFIG.shopify.domain}/cart/${items}`;
                 window.open(url, '_blank');
                 showToast('Redirecting to Shopify...', 'success');
                 
             } else if (method === 'whatsapp') {
-                // WhatsApp checkout
                 let message = `*NEW ORDER - VENTARA*%0A%0A`;
                 message += `*Customer Information:*%0A`;
                 message += `Name: [Your Name]%0A`;
@@ -2017,55 +1984,75 @@
         }
 
         // ==========================================
-        // NEWSLETTER / EMAIL FUNCTIONS
+        // NEWSLETTER WITH NAME & EMAIL
         // ==========================================
 
         async function handleSubscribe(e) {
             e.preventDefault();
+            const name = document.getElementById('subscriberName').value;
             const email = document.getElementById('subscriberEmail').value;
             const messageEl = document.getElementById('subscribeMessage');
             
-            // Save subscriber to local list
             let subscribers = JSON.parse(localStorage.getItem('ventara_subscribers')) || [];
             
-            if (subscribers.includes(email)) {
+            const existing = subscribers.find(s => s.email === email);
+            if (existing) {
                 messageEl.textContent = 'You\'re already subscribed!';
                 messageEl.style.color = 'var(--warning)';
                 messageEl.style.display = 'block';
                 return;
             }
             
-            subscribers.push(email);
+            const subscriber = {
+                name: name,
+                email: email,
+                date: new Date().toLocaleString()
+            };
+            
+            subscribers.push(subscriber);
             localStorage.setItem('ventara_subscribers', JSON.stringify(subscribers));
             
-            // Send email notification if EmailJS is configured
+            // Send welcome email to subscriber
             if (CONFIG.emailjs.enabled) {
                 try {
+                    // Send welcome email to subscriber
+                    await emailjs.send(
+                        CONFIG.emailjs.serviceId,
+                        CONFIG.emailjs.welcomeTemplateId,
+                        {
+                            to_email: email,
+                            to_name: name,
+                            from_name: 'Ventara',
+                            from_email: CONFIG.emailjs.adminEmail,
+                            reply_to: CONFIG.emailjs.adminEmail
+                        }
+                    );
+                    
+                    // Send notification to admin
                     await emailjs.send(
                         CONFIG.emailjs.serviceId,
                         CONFIG.emailjs.templateId,
                         {
-                            to_email: CONFIG.emailjs.recipientEmail,
+                            to_email: CONFIG.emailjs.adminEmail,
+                            subscriber_name: name,
                             subscriber_email: email,
                             subscriber_count: subscribers.length,
-                            subscriber_list: subscribers.join(', '),
                             date: new Date().toLocaleString()
                         }
                     );
-                    console.log('Notification email sent to admin');
+                    
+                    console.log('Emails sent successfully');
                 } catch (error) {
                     console.error('Email failed:', error);
                 }
             } else {
-                // Manual fallback - show subscribers in console
-                console.log('New subscriber:', email);
-                console.log('Full subscriber list:', subscribers);
-                console.log('To enable automatic emails, configure EmailJS in CONFIG');
+                console.log('New subscriber:', subscriber);
+                console.log('Full list:', subscribers);
+                console.log('To enable emails, configure EmailJS in CONFIG');
             }
             
-            // Show success message
             messageEl.innerHTML = `
-                ✅ Welcome to Ventara! <br>
+                ✅ Welcome to Ventara, ${name}! <br>
                 <small>Check your inbox for confirmation.</small>
             `;
             messageEl.style.color = 'white';
@@ -2074,14 +2061,13 @@
             showToast('Successfully subscribed!', 'success');
             e.target.reset();
             
-            // Hide message after 5 seconds
             setTimeout(() => {
                 messageEl.style.display = 'none';
             }, 5000);
         }
 
         // ==========================================
-        // ADMIN PANEL FUNCTIONS
+        // ADMIN PANEL WITH IMAGE UPLOAD
         // ==========================================
 
         function openAdminLogin() {
@@ -2097,7 +2083,6 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Simple auth - change these credentials as needed
             if (email === 'admin@ventara.com' && password === 'admin123') {
                 currentUser = { email };
                 document.getElementById('loginModal').classList.remove('active');
@@ -2129,6 +2114,41 @@
             event.target.classList.add('active');
         }
 
+        // IMAGE UPLOAD HANDLER
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.startsWith('image/')) {
+                showToast('Please upload an image file', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('uploadPreview');
+                const uploadArea = document.getElementById('imageUploadArea');
+                const hiddenInput = document.getElementById('newImage');
+                
+                preview.src = e.target.result;
+                preview.classList.add('show');
+                uploadArea.classList.add('has-image');
+                hiddenInput.value = e.target.result;
+                
+                // Change text to show success
+                uploadArea.querySelector('p').textContent = file.name;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetProductForm() {
+            document.getElementById('addProductForm').reset();
+            document.getElementById('uploadPreview').classList.remove('show');
+            document.getElementById('imageUploadArea').classList.remove('has-image');
+            document.getElementById('newImage').value = '';
+            document.querySelector('#imageUploadArea p').textContent = 'Click to upload image or drag and drop';
+        }
+
         function renderAdminProducts() {
             const container = document.getElementById('adminProductList');
             container.innerHTML = products.map(p => `
@@ -2144,7 +2164,7 @@
                     <div style="font-size: 0.875rem; color: var(--ventara-muted);">
                         ${p.originalPrice ? `<span style="text-decoration: line-through;">$${p.originalPrice.toFixed(2)}</span>` : '-'}
                     </div>
-                    <button class="btn btn-accent btn-sm" onclick="event.stopPropagation(); deleteProduct(${p.id})" style="padding: 0.5rem 1rem;">
+                    <button class="btn btn-accent" onclick="event.stopPropagation(); deleteProduct(${p.id})" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
                         Delete
                     </button>
                 </div>
@@ -2154,6 +2174,12 @@
         function handleAddProduct(e) {
             e.preventDefault();
             
+            const imageValue = document.getElementById('newImage').value;
+            if (!imageValue) {
+                showToast('Please upload an image', 'error');
+                return;
+            }
+            
             const newProduct = {
                 id: Date.now(),
                 name: document.getElementById('newName').value,
@@ -2161,7 +2187,7 @@
                 price: parseFloat(document.getElementById('newPrice').value),
                 originalPrice: parseFloat(document.getElementById('newComparePrice').value) || null,
                 description: document.getElementById('newDescription').value,
-                image: document.getElementById('newImage').value || null,
+                image: imageValue,
                 sizes: document.getElementById('newSizes').value.split(',').map(s => s.trim()).filter(s => s),
                 stock: parseInt(document.getElementById('newStock').value) || 0,
                 badge: null
@@ -2174,14 +2200,14 @@
             renderAdminProducts();
             showToast('Product added successfully!', 'success');
             
-            e.target.reset();
+            resetProductForm();
             showAdminSection('products');
         }
 
         function editProduct(id) {
             const product = products.find(p => p.id === id);
             const newName = prompt('Edit product name:', product.name);
-            if (newName !== null) {
+            if (newName !== null && newName !== '') {
                 product.name = newName;
                 localStorage.setItem('ventara_products', JSON.stringify(products));
                 renderProducts();
@@ -2245,7 +2271,6 @@
             }, 3000);
         }
 
-        // Close modals on outside click
         window.onclick = function(event) {
             const loginModal = document.getElementById('loginModal');
             if (event.target === loginModal) {
@@ -2253,7 +2278,6 @@
             }
         };
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2263,46 +2287,6 @@
                 }
             });
         });
-
-        // ==========================================
-        // HOW TO CUSTOMIZE - INSTRUCTIONS
-        // ==========================================
-        
-        /*
-        1. ADD/EDIT PRODUCTS:
-           - Use the Admin Panel (click user icon, login: admin@ventara.com / admin123)
-           - Or edit the 'products' array in this file
-           - Or use browser console: products.push({...})
-        
-        2. CHANGE COLORS:
-           - Edit CSS variables in :root at the top of <style>
-           - --ventara-primary: main brand color
-           - --ventara-accent: secondary color
-        
-        3. SET UP EMAIL NOTIFICATIONS:
-           - Go to https://www.emailjs.com/
-           - Create free account
-           - Add email service (Gmail recommended)
-           - Create template with variables: {{subscriber_email}}, {{date}}
-           - Copy Public Key, Service ID, Template ID to CONFIG.emailjs
-           - Set enabled: true
-        
-        4. CONNECT SHOPIFY:
-           - Replace CONFIG.shopify.domain with your store
-           - Set CONFIG.shopify.enabled to true
-        
-        5. CHANGE SHIPPING:
-           - Edit CONFIG.shipping.standard (regular cost)
-           - Edit CONFIG.shipping.freeThreshold (free shipping minimum)
-        
-        6. CHANGE WHATSAPP NUMBER:
-           - Edit CONFIG.whatsappNumber
-        
-        7. ACCESS SUBSCRIBER LIST:
-           - Open browser console (F12)
-           - Type: JSON.parse(localStorage.getItem('ventara_subscribers'))
-           - Or check email at ventara26@gmail.com (once EmailJS configured)
-        */
     </script>
 </body>
 </html>
