@@ -1158,18 +1158,28 @@
             margin-bottom: 2rem;
         }
         
-        .login-hint {
-            text-align: center;
-            color: var(--ventara-muted);
-            font-size: 0.875rem;
-            margin-top: 1rem;
+        /* ERROR MESSAGE STYLES */
+        .login-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
             padding: 1rem;
-            background: rgba(255,255,255,0.05);
             border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
         }
         
-        .login-hint strong {
-            color: var(--ventara-primary);
+        .login-error.show {
+            display: flex;
+        }
+        
+        .login-error svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
         }
 
         /* TOAST */
@@ -1375,8 +1385,8 @@
                 </svg>
             </button>
             
-            <!-- Admin Button with Label -->
-            <button class="nav-btn" onclick="openAdminLogin()" aria-label="Admin" title="Admin Login: admin@ventara.com / admin123">
+            <!-- Admin Button -->
+            <button class="nav-btn" onclick="openAdminLogin()" aria-label="Admin">
                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
@@ -1543,28 +1553,34 @@
         </div>
     </div>
 
-    <!-- LOGIN MODAL WITH HINT -->
+    <!-- LOGIN MODAL WITH ERROR MESSAGE -->
     <div class="login-modal" id="loginModal">
         <div class="login-box">
             <h2>Admin Access</h2>
+            
+            <!-- Error Message Container -->
+            <div class="login-error" id="loginError">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span id="loginErrorText">Invalid email or password</span>
+            </div>
+            
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="loginEmail" value="admin@ventara.com" required>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="loginPassword" value="admin123" required>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
                     Sign In
                 </button>
             </form>
-            <div class="login-hint">
-                <strong>Default Login:</strong><br>
-                Email: admin@ventara.com<br>
-                Password: admin123
-            </div>
         </div>
     </div>
 
@@ -1717,10 +1733,16 @@
     <!-- JAVASCRIPT -->
     <script>
         // ==========================================
-        // CONFIGURATION
+        // CONFIGURATION - CHANGE ADMIN CREDENTIALS HERE
         // ==========================================
         
         const CONFIG = {
+            // CHANGE THESE TO YOUR OWN ADMIN CREDENTIALS
+            admin: {
+                email: 'admin@ventara.com',      // ← Change this to your email
+                password: 'admin123'              // ← Change this to your password
+            },
+            
             brandName: 'VENTARA',
             whatsappNumber: '09067654328',
             
@@ -1979,7 +2001,24 @@
             if (cart.length === 0) {
                 itemsContainer.innerHTML = `
                     <div class="cart-empty">
-                        <svg width="80" height="80" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" style="margin-bottom: 1rem; opacity: 0.3;">
+                        <svg width="80" height="80" fill="="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" style="margin-bottom: 1rem; opacity: 0.3;">
+                            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some items to get started</p>
+                    </div>
+                `;
+                footer.style.display = 'none';
+            } else {
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.image || 'https://via.placeholder.com/100?text=No+Image'}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <p>Qty: ${item.quantity}</p>
+                            <div class="cart-item-price">$${(item.price *none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" style="margin-bottom: 1rem; opacity: 0.3;">
                             <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
                         <h3>Your cart is empty</h3>
@@ -2174,29 +2213,72 @@
         }
 
         // ==========================================
-        // ADMIN PANEL WITH IMAGE UPLOAD
+        // ADMIN PANEL WITH LOGIN ERROR HANDLING
         // ==========================================
 
         function openAdminLogin() {
             if (currentUser) {
                 openAdminPanel();
             } else {
+                // Clear any previous error and form data
+                hideLoginError();
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
                 document.getElementById('loginModal').classList.add('active');
             }
         }
+
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            const errorText = document.getElementById('loginErrorText');
+            errorText.textContent = message || 'Invalid email or password';
+            errorDiv.classList.add('show');
+            
+            // Shake animation on the login box
+            const loginBox = document.querySelector('.login-box');
+            loginBox.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                loginBox.style.animation = '';
+            }, 500);
+        }
+
+        function hideLoginError() {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.classList.remove('show');
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
 
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            if (email === 'admin@ventara.com' && password === 'admin123') {
+            // Check against CONFIG credentials
+            if (email === CONFIG.admin.email && password === CONFIG.admin.password) {
                 currentUser = { email };
+                hideLoginError();
                 document.getElementById('loginModal').classList.remove('active');
                 openAdminPanel();
                 showToast('Welcome to Admin Panel', 'success');
             } else {
-                showToast('Invalid credentials', 'error');
+                // Show specific error messages
+                if (email !== CONFIG.admin.email && password !== CONFIG.admin.password) {
+                    showLoginError('Invalid email and password');
+                } else if (email !== CONFIG.admin.email) {
+                    showLoginError('Invalid email address');
+                } else {
+                    showLoginError('Incorrect password');
+                }
             }
         }
 
