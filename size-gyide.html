@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Size Guide | 𝖛𝖊𝖓𝖙𝖆𝖗𝖆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+
+        /* Category Tabs */
+        .tabs-section {
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--ventara-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--ventara-primary);
+            color: white;
+            border-color: var(--ventara-primary);
+        }
+
+        /* Size Tables */
+        .size-content {
+            display: none;
+        }
+
+        .size-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .size-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--ventara-gray);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .size-table th,
+        .size-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .size-table th {
+            background: var(--ventara-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .size-table tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .size-table td {
+            color: var(--ventara-muted);
+        }
+
+        /* Measurement Guide */
+        .measure-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .measure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .measure-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .measure-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--ventara-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .measure-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .measure-text {
+            color: var(--ventara-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Fit Finder */
+        .fitfinder-section {
+            padding: 4rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fit-form {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ventara-muted);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-dark);
+            color: var(--ventara-light);
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--ventara-primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--ventara-primary-dark);
+        }
+
+        .recommendation {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--ventara-dark);
+            border-radius: 1rem;
+            border: 2px solid var(--ventara-primary);
+            display: none;
+        }
+
+        .recommendation.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="220594.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Size Guide</h1>
+            <p>Find your perfect fit with our comprehensive size charts</p>
+        </div>
+    </section>
+
+    <!-- Size Tables -->
+    <section class="tabs-section">
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="showCategory('tops')">Tops & Shirts</button>
+            <button class="tab-btn" onclick="showCategory('bottoms')">Pants & Bottoms</button>
+            <button class="tab-btn" onclick="showCategory('outerwear')">Outerwear</button>
+        </div>
+
+        <!-- Tops -->
+        <div id="tops" class="size-content active">
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest (in)</th>
+                        <th>Chest (cm)</th>
+                        <th>Length (in)</th>
+                        <th>Length (cm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>XS</td><td>34-36</td><td>86-91</td><td>26</td><td>66</td></tr>
+                    <tr><td>S</td><td>36-38</td><td>91-97</td><td>27</td><td>69</td></tr>
+                    <tr><td>M</td><td>38-40</td><td>97-102</td><td>28</td><td>71</td></tr>
+                    <tr><td>L</td><td>40-42</td><td>102-107</td><td>29</td><td>74</td></tr>
+                    <tr><td>XL</td><td>42-44</td><td>107-112</td><td>30</td><td>76</td></tr>
+                    <tr><td>XXL</td><td>44-46</td><td>112-117</td><td>31</td><td>79</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bottoms -->
+        <div id="bottoms" class="size-content">
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Waist (in)</th>
+                        <th>Waist (cm)</th>
+                        <th>Hip (in)</th>
+                        <th>Hip (cm)</th>
+                        <th>Inseam (in)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>28</td><td>28</td><td>71</td><td>35</td><td>89</td><td>30</td></tr>
+                    <tr><td>30</td><td>30</td><td>76</td><td>37</td><td>94</td><td>30</td></tr>
+                    <tr><td>32</td><td>32</td><td>81</td><td>39</td><td>99</td><td>32</td></tr>
+                    <tr><td>34</td><td>34</td><td>86</td><td>41</td><td>104</td><td>32</td></tr>
+                    <tr><td>36</td><td>36</td><td>91</td><td>43</td><td>109</td><td>32</td></tr>
+                    <tr><td>38</td><td>38</td><td>97</td><td>45</td><td>114</td><td>32</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Outerwear -->
+        <div id="outerwear" class="size-content">
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest (in)</th>
+                        <th>Chest (cm)</th>
+                        <th>Shoulder (in)</th>
+                        <th>Sleeve (in)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>XS</td><td>36</td><td>91</td><td>16</td><td>24</td></tr>
+                    <tr><td>S</td><td>38</td><td>97</td><td>17</td><td>25</td></tr>
+                    <tr><td>M</td><td>40</td><td>102</td><td>18</td><td>26</td></tr>
+                    <tr><td>L</td><td>42</td><td>107</td><td>19</td><td>27</td></tr>
+                    <tr><td>XL</td><td>44</td><td>112</td><td>20</td><td>28</td></tr>
+                    <tr><td>XXL</td><td>46</td><td>117</td><td>21</td><td>29</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- How to Measure -->
+    <section class="measure-section">
+        <h2 style="text-align: center; margin-bottom: 1rem;">How to Measure</h2>
+        <p style="text-align: center; color: var(--ventara-muted);">Follow these simple steps for accurate measurements</p>
+        
+        <div class="measure-grid">
+            <div class="measure-card">
+                <div class="measure-icon">📏</div>
+                <h3 class="measure-title">Chest</h3>
+                <p class="measure-text">Measure around the fullest part of your chest, keeping tape horizontal</p>
+            </div>
+            <div class="measure-card">
+                <div class="measure-icon">📐</div>
+                <h3 class="measure-title">Waist</h3>
+                <p class="measure-text">Measure around your natural waistline, above your belly button</p>
+            </div>
+            <div class="measure-card">
+                <div class="measure-icon">🎯</div>
+                <h3 class="measure-title">Hip</h3>
+                <p class="measure-text">Measure around the fullest part of your hips, about 8" below waist</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fit Finder -->
+    <section class="fitfinder-section">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Fit Finder</h2>
+        <p style="text-align: center; color: var(--ventara-muted); margin-bottom: 2rem;">Enter your measurements for a personalized size recommendation</p>
+        
+        <form class="fit-form" id="fitForm" onsubmit="findFit(event)">
+            <div class="form-group">
+                <label>Category</label>
+                <select id="fitCategory" required>
+                    <option value="">Select category...</option>
+                    <option value="tops">Tops & Shirts</option>
+                    <option value="bottoms">Pants & Bottoms</option>
+                    <option value="outerwear">Outerwear</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Your Measurement (inches)</label>
+                <input type="number" id="measurement" step="0.5" required placeholder="e.g., 38">
+            </div>
+            <button type="submit" class="submit-btn">Find My Size</button>
+        </form>
+
+        <div class="recommendation" id="recommendation">
+            <h3 style="color: var(--ventara-primary); margin-bottom: 1rem;">Your Recommended Size</h3>
+            <p id="recText"></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆®. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        function showCategory(category) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show content
+            document.querySelectorAll('.size-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(category).classList.add('active');
+        }
+
+        // Fit Finder
+        function findFit(event) {
+            event.preventDefault();
+            
+            const category = document.getElementById('fitCategory').value;
+            const measurement = parseFloat(document.getElementById('measurement').value);
+            
+            let size = '';
+            let fit = '';
+
+            if (category === 'tops' || category === 'outerwear') {
+                if (measurement < 36) size = 'XS';
+                else if (measurement < 38) size = 'S';
+                else if (measurement < 40) size = 'M';
+                else if (measurement < 42) size = 'L';
+                else if (measurement < 44) size = 'XL';
+                else size = 'XXL';
+            } else if (category === 'bottoms') {
+                if (measurement < 29) size = '28';
+                else if (measurement < 31) size = '30';
+                else if (measurement < 33) size = '32';
+                else if (measurement < 35) size = '34';
+                else if (measurement < 37) size = '36';
+                else size = '38';
+            }
+
+            document.getElementById('recText').innerHTML = `
+                <strong style="font-size: 1.5rem; color: white;">${size}</strong><br><br>
+                Based on your measurement of ${measurement} inches, we recommend size <strong>${size}</strong>.<br><br>
+                <span style="color: var(--ventara-muted);">Tip: If you're between sizes, we recommend sizing up for a relaxed fit or down for a slim fit.</span>
+            `;
+            
+            document.getElementById('recommendation').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
