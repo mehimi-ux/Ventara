@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping | VENTARA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+
+        /* Custom Label Banner - EDIT THIS SECTION */
+        .label-banner {
+            background: linear-gradient(135deg, var(--ventara-primary) 0%, var(--ventara-primary-dark) 100%);
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .label-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .label-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .label-icon {
+            font-size: 1.5rem;
+        }
+
+        .label-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .label-subtext {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* EDIT THESE CUSTOM LABEL STYLES */
+        .custom-label {
+            /* Change background color */
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            
+            /* Change text color */
+            color: white;
+            
+            /* Change padding */
+            padding: 1.5rem;
+            
+            /* Change border radius */
+            border-radius: 0;
+            
+            /* Add border if desired */
+            border: none;
+            
+            /* Change font */
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Shipping Options */
+        .options-section {
+            padding: 4rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .shipping-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .shipping-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .shipping-card:hover {
+            border-color: var(--ventara-primary);
+            transform: translateY(-5px);
+        }
+
+        .shipping-card.featured {
+            border-color: var(--ventara-primary);
+            background: linear-gradient(135deg, var(--ventara-gray) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--ventara-primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .shipping-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shipping-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ventara-primary);
+            margin-bottom: 1rem;
+        }
+
+        .shipping-price span {
+            font-size: 1rem;
+            color: var(--ventara-muted);
+            font-weight: 400;
+        }
+
+        .shipping-details {
+            list-style: none;
+            color: var(--ventara-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .shipping-details li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .shipping-details li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        /* Calculator */
+        .calculator-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .calculator {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .calc-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: end;
+        }
+
+        .calc-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        .calc-group input,
+        .calc-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-dark);
+            color: var(--ventara-light);
+        }
+
+        .calc-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--ventara-dark);
+            border-radius: 0.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        .calc-result.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Tracking */
+        .tracking-section {
+            padding: 4rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tracking-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tracking-form input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-gray);
+            color: var(--ventara-light);
+        }
+
+        /* International */
+        .international-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .country-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 2rem auto 0;
+        }
+
+        .country-item {
+            background: var(--ventara-gray);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .country-flag {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .country-name {
+            font-size: 0.875rem;
+            color: var(--ventara-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="220594.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Shipping Information</h1>
+            <p>Fast, reliable delivery to your doorstep</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         CUSTOMIZABLE LABEL BANNER
+         Edit the text below to change your message
+         ========================================== -->
+    <div class="label-banner custom-label">
+        <div class="label-content">
+            <span class="label-icon">🚚</span>
+            <div>
+                <div class="label-text">FREE EXPRESS SHIPPING ON ORDERS OVER $150</div>
+                <div class="label-subtext">Limited time offer - Shop now and save!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shipping Options -->
+    <section class="options-section">
+        <h2 style="text-align: center; margin-bottom: 1rem;">Shipping Options</h2>
+        <p style="text-align: center; color: var(--ventara-muted);">Choose the delivery speed that works for you</p>
+        
+        <div class="shipping-grid">
+            <div class="shipping-card">
+                <h3 class="shipping-name">Standard</h3>
+                <div class="shipping-price">$15 <span>/ order</span></div>
+                <ul class="shipping-details">
+                    <li>5-7 business days</li>
+                    <li>Tracking included</li>
+                    <li>$150+ orders ship FREE</li>
+                    <li>All destinations</li>
+                </ul>
+            </div>
+            
+            <div class="shipping-card featured">
+                <span class="featured-badge">POPULAR</span>
+                <h3 class="shipping-name">Express</h3>
+                <div class="shipping-price">$25 <span>/ order</span></div>
+                <ul class="shipping-details">
+                    <li>2-3 business days</li>
+                    <li>Priority tracking</li>
+                    <li>$300+ orders ship FREE</li>
+                    <li>Signature required</li>
+                </ul>
+            </div>
+            
+            <div class="shipping-card">
+                <h3 class="shipping-name">Next Day</h3>
+                <div class="shipping-price">$40 <span>/ order</span></div>
+                <ul class="shipping-details">
+                    <li>Next business day</li>
+                    <li>Real-time tracking</li>
+                    <li>Weekend delivery available</li>
+                    <li>White glove service</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipping Calculator -->
+    <section class="calculator-section">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Shipping Calculator</h2>
+        <div class="calculator">
+            <div class="calc-row">
+                <div class="calc-group">
+                    <label>Destination Country</label>
+                    <select id="calcCountry" onchange="calculateShipping()">
+                        <option value="US">United States</option>
+                        <option value="CA">Japan</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="EU">Europe</option>
+                        <option value="AU">Australia</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+                <div class="calc-group">
+                    <label>Order Value ($)</label>
+                    <input type="number" id="calcValue" placeholder="100" oninput="calculateShipping()">
+                </div>
+                <div class="calc-group">
+                    <label>Method</label>
+                    <select id="calcMethod" onchange="calculateShipping()">
+                        <option value="standard">Standard</option>
+                        <option value="express">Express</option>
+                        <option value="nextday">Next Day</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="calc-result" id="calcResult">
+                <h3 style="color: var(--ventara-primary); margin-bottom: 0.5rem;">Estimated Shipping</h3>
+                <p id="calcText"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Track Order -->
+    <section class="tracking-section">
+        <h2>Track Your Order</h2>
+        <p style="color: var(--ventara-muted); margin-top: 0.5rem;">Enter your tracking number to see delivery status</p>
+        
+        <div class="tracking-form">
+            <input type="text" id="trackNumber" placeholder="Tracking number (e.g., VTR123456)">
+            <button class="submit-btn" onclick="trackOrder()" style="width: auto; padding: 1rem 2rem;">Track</button>
+        </div>
+    </section>
+
+    <!-- International -->
+    <section class="international-section">
+        <h2 style="text-align: center; margin-bottom: 1rem;">We Ship Worldwide</h2>
+        <p style="text-align: center; color: var(--ventara-muted);">Delivering to 50+ countries</p>
+        
+        <div class="country-list">
+            <div class="country-item"><div class="country-flag">🇺🇸</div><div class="country-name">USA</div></div>
+            <div class="country-item"><div class="country-flag">🇳🇬</div><div class="country-name">Nigeria</div></div>
+            <div class="country-item"><div class="country-flag">🇬🇧</div><div class="country-name">UK</div></div>
+            <div class="country-item"><div class="country-flag">🇩🇪</div><div class="country-name">Germany</div></div>
+            <div class="country-item"><div class="country-flag">🇫🇷</div><div class="country-name">France</div></div>
+            <div class="country-item"><div class="country-flag">🇦🇺</div><div class="country-name">Australia</div></div>
+            <div class="country-item"><div class="country-flag">🇯🇵</div><div class="country-name">Japan</div></div>
+            <div class="country-item"><div class="country-flag">🇳🇱</div><div class="country-name">Netherlands</div></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆®. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Shipping Calculator
+        function calculateShipping() {
+            const country = document.getElementById('calcCountry').value;
+            const value = parseFloat(document.getElementById('calcValue').value) || 0;
+            const method = document.getElementById('calcMethod').value;
+            
+            let baseCost = 0;
+            let freeThreshold = 150;
+            
+            // Method pricing
+            switch(method) {
+                case 'standard': baseCost = 15; freeThreshold = 150; break;
+                case 'express': baseCost = 25; freeThreshold = 300; break;
+                case 'nextday': baseCost = 40; freeThreshold = 999999; break;
+            }
+            
+            // International surcharge
+            let surcharge = 0;
+            if (country !== 'US') {
+                surcharge = method === 'standard' ? 10 : 20;
+            }
+            
+            const totalCost = value >= freeThreshold ? 0 : baseCost + surcharge;
+            const deliveryDays = method === 'standard' ? '5-7' : method === 'express' ? '2-3' : '1';
+            
+            const resultDiv = document.getElementById('calcResult');
+            const resultText = document.getElementById('calcText');
+            
+            if (value > 0) {
+                resultText.innerHTML = totalCost === 0 ? 
+                    `<strong style="font-size: 2rem; color: var(--success);">FREE</strong><br>Qualifies for free ${method} shipping!<br>Delivery: ${deliveryDays} business days` :
+                    `<strong style="font-size: 2rem; color: var(--ventara-primary);">$${totalCost}</strong><br>Delivery: ${deliveryDays} business days<br>${country !== 'US' ? 'Includes international surcharge' : ''}`;
+                resultDiv.classList.add('visible');
+            }
+        }
+
+        // Track Order
+        function trackOrder() {
+            const trackingNum = document.getElementById('trackNumber').value;
+            if (!trackingNum) {
+                alert('Please enter a tracking number');
+                return;
+            }
+            
+            // Simulate tracking
+            const statuses = ['Order processed', 'Shipped', 'In transit', 'Out for delivery', 'Delivered'];
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            alert(`Tracking: ${trackingNum}\n\nStatus: ${randomStatus}\nLocation: Distribution Center\nEstimated Delivery: 2-3 days`);
+        }
+
+        // Enter key for tracking
+        document.getElementById('trackNumber')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') trackOrder();
+        });
+    </script>
+</body>
+                      </html>
+                          
