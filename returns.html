@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns & Exchanges | 𝖛𝖊𝖓𝖙𝖆𝖗𝖆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+
+        /* Returns Process */
+        .process-section {
+            padding: 4rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ventara-primary);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--ventara-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-text {
+            color: var(--ventara-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Policy Details */
+        .policy-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .policy-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .policy-card h3 {
+            color: var(--ventara-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .policy-card ul {
+            list-style: none;
+            color: var(--ventara-muted);
+        }
+
+        .policy-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .policy-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+
+        /* Return Form */
+        .form-section {
+            padding: 4rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .return-form {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ventara-muted);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-dark);
+            color: var(--ventara-light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ventara-primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--ventara-primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--ventara-primary-dark);
+        }
+
+        /* Status Checker */
+        .status-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+            text-align: center;
+        }
+
+        .status-checker {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .status-checker input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-gray);
+            color: var(--ventara-light);
+        }
+
+        .status-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--ventara-gray);
+            border-radius: 1rem;
+            display: none;
+        }
+
+        .status-result.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="220594.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Returns & Exchanges</h1>
+            <p>Easy returns within 30 days. No questions asked.</p>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process-section">
+        <h2 style="text-align: center; margin-bottom: 1rem;">How It Works</h2>
+        <p style="text-align: center; color: var(--ventara-muted);">Four simple steps to return or exchange your item</p>
+        
+        <div class="process-steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Initiate</h3>
+                <p class="step-text">Log into your account and select the order you want to return</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Package</h3>
+                <p class="step-text">Repack items in original packaging with tags attached</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Ship</h3>
+                <p class="step-text">Use our prepaid label or drop off at any location</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Refund</h3>
+                <p class="step-text">Receive refund within 5-7 business days</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy -->
+    <section class="policy-section">
+        <div class="policy-grid">
+            <div class="policy-card">
+                <h3>✓ Eligible Items</h3>
+                <ul>
+                    <li>Unworn and unwashed items</li>
+                    <li>Original tags attached</li>
+                    <li>Within 30 days of delivery</li>
+                    <li>Original packaging included</li>
+                    <li>No signs of wear or damage</li>
+                </ul>
+            </div>
+            <div class="policy-card">
+                <h3>✗ Non-Returnable</h3>
+                <ul>
+                    <li>Final sale items</li>
+                    <li>Intimates and swimwear</li>
+                    <li>Items without original tags</li>
+                    <li>Worn or damaged items</li>
+                    <li>Items past 30-day window</li>
+                </ul>
+            </div>
+            <div class="policy-card">
+                <h3>↻ Exchange Options</h3>
+                <ul>
+                    <li>Free size exchanges</li>
+                    <li>Color exchanges available</li>
+                    <li>Store credit option</li>
+                    <li>Original payment refund</li>
+                    <li>Price difference handling</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return Form -->
+    <section class="form-section">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Start a Return</h2>
+        <form class="return-form" id="returnForm" onsubmit="submitReturn(event)">
+            <div class="form-group">
+                <label>Order Number *</label>
+                <input type="text" id="orderNumber" required placeholder="e.g., VTR-123456">
+            </div>
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Return Reason *</label>
+                <select id="reason" required>
+                    <option value="">Select a reason...</option>
+                    <option value="size">Wrong Size</option>
+                    <option value="fit">Didn't Fit</option>
+                    <option value="quality">Quality Issue</option>
+                    <option value="not-as-described">Not as Described</option>
+                    <option value="changed-mind">Changed Mind</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Additional Comments</label>
+                <textarea id="comments" rows="3" placeholder="Tell us more about your return..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Return Request</button>
+        </form>
+    </section>
+
+    <!-- Status Checker -->
+    <section class="status-section">
+        <h2>Check Return Status</h2>
+        <p style="color: var(--ventara-muted); margin-top: 0.5rem;">Enter your return tracking number</p>
+        
+        <div class="status-checker">
+            <input type="text" id="trackingNumber" placeholder="Return tracking number">
+            <button class="submit-btn" onclick="checkStatus()" style="width: auto; padding: 1rem 2rem;">Check</button>
+        </div>
+        
+        <div class="status-result" id="statusResult">
+            <h3 style="color: var(--ventara-primary); margin-bottom: 1rem;">Return Status</h3>
+            <p id="statusText"></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆®. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Submit Return
+        function submitReturn(event) {
+            event.preventDefault();
+            
+            const returnData = {
+                orderNumber: document.getElementById('orderNumber').value,
+                email: document.getElementById('email').value,
+                reason: document.getElementById('reason').value,
+                comments: document.getElementById('comments').value,
+                date: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            // Store in localStorage (simulated)
+            let returns = JSON.parse(localStorage.getItem('ventara_returns') || '[]');
+            returns.push(returnData);
+            localStorage.setItem('ventara_returns', JSON.stringify(returns));
+
+            // Generate tracking number
+            const trackingNum = 'RET-' + Date.now().toString().slice(-8);
+            localStorage.setItem('return_tracking_' + trackingNum, JSON.stringify(returnData));
+
+            alert('Return request submitted!\n\nYour return tracking number is: ' + trackingNum + '\n\nPlease save this number to check your status.');
+            
+            document.getElementById('returnForm').reset();
+        }
+
+        // Check Status
+        function checkStatus() {
+            const trackingNum = document.getElementById('trackingNumber').value;
+            const resultDiv = document.getElementById('statusResult');
+            const statusText = document.getElementById('statusText');
+
+            if (!trackingNum) {
+                alert('Please enter a tracking number');
+                return;
+            }
+
+            // Simulate status check
+            const statuses = [
+                { text: 'Return received at warehouse', date: '2 days ago' },
+                { text: 'Item being inspected', date: '1 day ago' },
+                { text: 'Refund processed', date: 'Today' }
+            ];
+
+            // Random status for demo
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            statusText.innerHTML = `
+                <strong>Tracking:</strong> ${trackingNum}<br><br>
+                <strong>Current Status:</strong> ${randomStatus.text}<br>
+                <strong>Updated:</strong> ${randomStatus.date}<br><br>
+                <span style="color: var(--ventara-muted);">Expected refund: 3-5 business days</span>
+            `;
+            
+            resultDiv.classList.add('visible');
+        }
+
+        // Enter key for status check
+        document.getElementById('trackingNumber')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkStatus();
+        });
+    </script>
+</body>
+</html>
