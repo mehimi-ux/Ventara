@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ & Reviews | 𝖛𝖊𝖓𝖙𝖆𝖗𝖆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation (same as our-story.html) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+
+        /* Search */
+        .search-section {
+            padding: 2rem 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-gray);
+            color: var(--ventara-light);
+            font-size: 1rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--ventara-primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ventara-muted);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 2rem 3rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--ventara-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--ventara-primary);
+            color: white;
+            border-color: var(--ventara-primary);
+        }
+
+        .faq-item {
+            background: var(--ventara-gray);
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s;
+            color: var(--ventara-primary);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--ventara-muted);
+            line-height: 1.8;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+
+        .add-review-btn {
+            background: var(--ventara-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .add-review-btn:hover {
+            background: var(--ventara-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ventara-primary);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+        }
+
+        .review-date {
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: var(--ventara-muted);
+            line-height: 1.8;
+        }
+
+        .review-verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--success);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        /* Review Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ventara-muted);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--ventara-dark);
+            color: var(--ventara-light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ventara-primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .star-rating span {
+            color: var(--ventara-gray);
+            transition: color 0.2s;
+        }
+
+        .star-rating span.active,
+        .star-rating span:hover {
+            color: #fbbf24;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--ventara-primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--ventara-primary-dark);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--ventara-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--ventara-muted);
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="your-logo.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about orders, shipping, and returns</p>
+        </div>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="faqSearch" placeholder="Search for answers..." onkeyup="searchFAQ()">
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+    <section class="faq-section">
+        <div class="faq-categories">
+            <button class="category-btn active" onclick="filterCategory('all')">All</button>
+            <button class="category-btn" onclick="filterCategory('orders')">Orders</button>
+            <button class="category-btn" onclick="filterCategory('shipping')">Shipping</button>
+            <button class="category-btn" onclick="filterCategory('returns')">Returns</button>
+            <button class="category-btn" onclick="filterCategory('products')">Products</button>
+        </div>
+
+        <div id="faqContainer">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I track my order?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>Once your order ships, you'll receive an email with a tracking number. You can use this number on our website or the carrier's site to track your package in real-time.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" data-category="shipping">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How long does shipping take?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>Standard shipping takes 5-7 business days. Express shipping (2-3 business days) is available at checkout. International orders may take 10-14 business days depending on customs.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" data-category="returns">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What is your return policy?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a 30-day return policy for all unworn items with original tags attached. Simply initiate a return through your account or contact our support team. Refunds are processed within 5-7 business days.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item" data-category="products">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I find my correct size?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>Check our detailed <a href="size-guide.html" style="color: var(--ventara-primary);">size guide</a> for measurements. Each product page also includes specific sizing information. When in doubt, we recommend sizing up for a relaxed fit.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I modify or cancel my order?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>Orders can be modified or cancelled within 2 hours of placement. After that, we begin processing and cannot guarantee changes. Contact customer service immediately for assistance.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item" data-category="products">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Are your materials sustainable?</h3>
+                    <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! We use 100% organic cotton, recycled polyester, and ethically sourced wool. Our packaging is 100% recyclable and plastic-free. Read more about our sustainability commitment on our <a href="our-story.html" style="color: var(--ventara-primary);">Our Story</a> page.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <p>No questions found matching your search. Try different keywords or <a href="contact.html" style="color: var(--ventara-primary);">contact us</a>.</p>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="section-header">
+            <h2>Customer Reviews</h2>
+            <p>See what our customers are saying</p>
+            <button class="add-review-btn" onclick="openReviewModal()">+ Write a Review</button>
+        </div>
+
+        <div class="reviews-grid" id="reviewsGrid">
+            <!-- Reviews will be loaded from localStorage -->
+        </div>
+    </section>
+
+    <!-- Review Modal -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal" style="position: relative;">
+            <button class="close-modal" onclick="closeReviewModal()">×</button>
+            <h2>Write a Review</h2>
+            <form id="reviewForm" onsubmit="submitReview(event)">
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" id="reviewerName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Rating *</label>
+                    <div class="star-rating" id="starRating">
+                        <span onclick="setRating(1)">★</span>
+                        <span onclick="setRating(2)">★</span>
+                        <span onclick="setRating(3)">★</span>
+                        <span onclick="setRating(4)">★</span>
+                        <span onclick="setRating(5)">★</span>
+                    </div>
+                    <input type="hidden" id="ratingValue" required>
+                </div>
+                <div class="form-group">
+                    <label>Your Review *</label>
+                    <textarea id="reviewText" required placeholder="Share your experience with our products..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Product Purchased</label>
+                    <select id="productPurchased">
+                        <option value="">Select a product...</option>
+                        <option value="Classic Oxford Shirt">Classic Oxford Shirt</option>
+                        <option value="Slim Fit Chinos">Slim Fit Chinos</option>
+                        <option value="Wool Overcoat">Wool Overcoat</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all others
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+            
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Category Filter
+        function filterCategory(category) {
+            // Update buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter items
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Search FAQ
+        function searchFAQ() {
+            const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+            const noResults = document.getElementById('noResults');
+            let hasResults = false;
+
+            items.forEach(item => {
+                const question = item.querySelector('h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            noResults.classList.toggle('visible', !hasResults);
+        }
+
+        // Reviews Management
+        let currentRating = 0;
+
+        // Default reviews (shown if no reviews in localStorage)
+        const defaultReviews = [
+            {
+                id: 1,
+                name: "Sarah M.",
+                date: "2024-01-15",
+                rating: 5,
+                text: "Absolutely love the quality! The fabric feels premium and the fit is perfect. Will definitely be ordering more.",
+                product: "Classic Oxford Shirt",
+                verified: true
+            },
+            {
+                id: 2,
+                name: "James K.",
+                date: "2024-01-10",
+                rating: 5,
+                text: "Fast shipping and excellent customer service. The wool overcoat exceeded my expectations. Highly recommend!",
+                product: "Wool Overcoat",
+                verified: true
+            },
+            {
+                id: 3,
+                name: "Emily R.",
+                date: "2024-01-05",
+                rating: 4,
+                text: "Great chinos, very comfortable. Sizing runs slightly small so I'd recommend sizing up. Otherwise perfect!",
+                product: "Slim Fit Chinos",
+                verified: true
+            }
+        ];
+
+        // Load reviews
+        function loadReviews() {
+            const stored = localStorage.getItem('ventara_reviews');
+            const reviews = stored ? JSON.parse(stored) : defaultReviews;
+            
+            // If no stored reviews, save defaults
+            if (!stored) {
+                localStorage.setItem('ventara_reviews', JSON.stringify(defaultReviews));
+            }
+            
+            renderReviews(reviews);
+        }
+
+        function renderReviews(reviews) {
+            const container = document.getElementById('reviewsGrid');
+            container.innerHTML = reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">${review.name}</span>
+                        <span class="review-date">${formatDate(review.date)}</span>
+                    </div>
+                    <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                    <p class="review-text">${review.text}</p>
+                    ${review.product ? `<p style="color: var(--ventara-primary); font-size: 0.875rem; margin-top: 0.5rem;">Purchased: ${review.product}</p>` : ''}
+                    ${review.verified ? '<span class="review-verified">✓ Verified Purchase</span>' : ''}
+                </div>
+            `).join('');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        // Review Modal
+        function openReviewModal() {
+            document.getElementById('reviewModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('active');
+            document.body.style.overflow = '';
+            resetReviewForm();
+        }
+
+        function setRating(rating) {
+            currentRating = rating;
+            document.getElementById('ratingValue').value = rating;
+            
+            const stars = document.querySelectorAll('#starRating span');
+            stars.forEach((star, index) => {
+                star.classList.toggle('active', index < rating);
+            });
+        }
+
+        function resetReviewForm() {
+            document.getElementById('reviewForm').reset();
+            currentRating = 0;
+            document.querySelectorAll('#starRating span').forEach(star => star.classList.remove('active'));
+        }
+
+        function submitReview(event) {
+            event.preventDefault();
+            
+            if (currentRating === 0) {
+                alert('Please select a rating');
+                return;
+            }
+
+            const newReview = {
+                id: Date.now(),
+                name: document.getElementById('reviewerName').value,
+                date: new Date().toISOString().split('T')[0],
+                rating: currentRating,
+                text: document.getElementById('reviewText').value,
+                product: document.getElementById('productPurchased').value,
+                verified: false // User-submitted reviews show as unverified
+            };
+
+            // Get existing reviews
+            const stored = localStorage.getItem('ventara_reviews');
+            const reviews = stored ? JSON.parse(stored) : defaultReviews;
+            
+            // Add new review at beginning
+            reviews.unshift(newReview);
+            
+            // Save to localStorage
+            localStorage.setItem('ventara_reviews', JSON.stringify(reviews));
+            
+            // Re-render
+            renderReviews(reviews);
+            
+            // Close modal
+            closeReviewModal();
+            
+            // Show success message
+            alert('Thank you for your review! It has been submitted for approval.');
+        }
+
+        // Close modal on outside click
+        document.getElementById('reviewModal').addEventListener('click', function(e) {
+            if (e.target === this) closeReviewModal();
+        });
+
+        // Load reviews on page load
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+</body>
+</html>
