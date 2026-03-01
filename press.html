@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press | 𝖛𝖊𝖓𝖙𝖆𝖗𝖆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; }
+
+        /* Press Kit Download */
+        .kit-section {
+            padding: 2rem 3rem;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--ventara-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .download-btn:hover {
+            background: var(--ventara-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Media Coverage */
+        .coverage-section {
+            padding: 4rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .coverage-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .coverage-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ventara-primary);
+        }
+
+        .coverage-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ventara-primary);
+            margin-bottom: 1rem;
+        }
+
+        .coverage-quote {
+            font-style: italic;
+            color: var(--ventara-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .coverage-date {
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--ventara-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Press Releases */
+        .releases-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .releases-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .release-item {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .release-item:hover {
+            border-color: var(--ventara-primary);
+        }
+
+        .release-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .release-date {
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        .release-badge {
+            background: var(--ventara-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        /* Brand Assets */
+        .assets-section {
+            padding: 4rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .asset-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .asset-card:hover {
+            border-color: var(--ventara-primary);
+            transform: translateY(-5px);
+        }
+
+        .asset-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .asset-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .asset-size {
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Contact */
+        .contact-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+            text-align: center;
+        }
+
+        .press-contact {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .contact-email {
+            color: var(--ventara-primary);
+            font-size: 1.25rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="220594.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Press & Media</h1>
+            <p>News, assets, and media resources</p>
+        </div>
+    </section>
+
+    <!-- Press Kit -->
+    <section class="kit-section">
+        <a href="press-kit.zip" class="download-btn" download>
+            <span>📦</span>
+            Download Press Kit
+        </a>
+        <p style="color: var(--ventara-muted); margin-top: 1rem;">Includes logos, product images, and brand guidelines</p>
+    </section>
+
+    <!-- Media Coverage -->
+    <section class="coverage-section">
+        <div class="section-header">
+            <h2>In The News</h2>
+            <p style="color: var(--ventara-muted);">What they're saying about us</p>
+        </div>
+        
+        <div class="coverage-grid">
+            <div class="coverage-card">
+                <div class="coverage-logo">VOGUE</div>
+                <p class="coverage-quote">"𝖛𝖊𝖓𝖙𝖆𝖗𝖆 is redefining contemporary menswear with their commitment to sustainability and timeless design."</p>
+                <p class="coverage-date">January 2027</p>
+                <a href="#" class="read-more">Read Article →</a>
+            </div>
+            <div class="coverage-card">
+                <div class="coverage-logo">GQ</div>
+                <p class="coverage-quote">"The brand to watch in 2026. Their latest collection proves that ethical fashion can be exceptionally stylish."</p>
+                <p class="coverage-date">December 2026</p>
+                <a href="#" class="read-more">Read Article →</a>
+            </div>
+            <div class="coverage-card">
+                <div class="coverage-logo">ESQUIRE</div>
+                <p class="coverage-quote">"Finally, a brand that understands modern luxury. 𝖛𝖊𝖓𝖙𝖆𝖗𝖆's attention to detail is unmatched."</p>
+                <p class="coverage-date">November 2026</p>
+                <a href="#" class="read-more">Read Article →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press Releases -->
+    <section class="releases-section">
+        <div class="section-header">
+            <h2>Press Releases</h2>
+            <p style="color: var(--ventara-muted);">Official announcements</p>
+        </div>
+        
+        <div class="releases-list">
+            <div class="release-item">
+                <div class="release-info">
+                    <h3>𝖛𝖊𝖓𝖙𝖆𝖗𝖆 Opens Flagship Store in Tokyo</h3>
+                    <p class="release-date">March 15, 2027</p>
+                </div>
+                <span class="release-badge">New</span>
+            </div>
+            <div class="release-item">
+                <div class="release-info">
+                    <h3>Sustainable Collection Launch: Earth Day 2027</h3>
+                    <p class="release-date">February 28, 2027</p>
+                </div>
+            </div>
+            <div class="release-item">
+                <div class="release-info">
+                    <h3>𝖛𝖊𝖓𝖙𝖆𝖗𝖆 Raises $10M Series A Funding</h3>
+                    <p class="release-date">January 10, 2027</p>
+                </div>
+            </div>
+            <div class="release-item">
+                <div class="release-info">
+                    <h3>Partnership with Sustainable Cotton Initiative</h3>
+                    <p class="release-date">December 5, 2026</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Assets -->
+    <section class="assets-section">
+        <div class="section-header">
+            <h2>Brand Assets</h2>
+            <p style="color: var(--ventara-muted);">Download official brand materials</p>
+        </div>
+        
+        <div class="assets-grid">
+            <div class="asset-card" onclick="downloadAsset('logo-pack')">
+                <div class="asset-icon">🎨</div>
+                <div class="asset-name">Logo Pack</div>
+                <div class="asset-size">PNG, SVG, PDF • 5MB</div>
+            </div>
+            <div class="asset-card" onclick="downloadAsset('product-photos')">
+                <div class="asset-icon">📸</div>
+                <div class="asset-name">Product Photos</div>
+                <div class="asset-size">High-res • 250MB</div>
+            </div>
+            <div class="asset-card" onclick="downloadAsset('brand-guidelines')">
+                <div class="asset-icon">📋</div>
+                <div class="asset-name">Brand Guidelines</div>
+                <div class="asset-size">PDF • 12MB</div>
+            </div>
+            <div class="asset-card" onclick="downloadAsset('founder-photos')">
+                <div class="asset-icon">👤</div>
+                <div class="asset-name">Founder Photos</div>
+                <div class="asset-size">High-res • 45MB</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press Contact -->
+    <section class="contact-section">
+        <h2>Press Inquiries</h2>
+        <p style="color: var(--ventara-muted); margin-top: 0.5rem;">For media requests and interview opportunities</p>
+        
+        <div class="press-contact">
+            <p style="margin-bottom: 0.5rem;">Contact our press team:</p>
+            <a href="mailto:press@ventara.com" class="contact-email">press@ventara.com</a>
+            <p style="color: var(--ventara-muted); margin-top: 1rem;">Response within 24 hours</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆®. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function downloadAsset(asset) {
+            alert(`Downloading ${asset}...\n\nIn production, this would download the actual file.`);
+        }
+    </script>
+</body>
+</html>
