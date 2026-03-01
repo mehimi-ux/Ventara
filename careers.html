@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | 𝖛𝖊𝖓𝖙𝖆𝖗𝖆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ventara-primary: #06b6d4;
+            --ventara-primary-dark: #0891b2;
+            --ventara-accent: #ff6b6b;
+            --ventara-dark: #0f172a;
+            --ventara-darker: #020617;
+            --ventara-gray: #1e293b;
+            --ventara-light: #f8fafc;
+            --ventara-muted: #94a3b8;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ventara-darker);
+            color: var(--ventara-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ventara-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .back-btn {
+            color: var(--ventara-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover { color: var(--ventara-primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 3rem 4rem;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                var(--ventara-dark);
+        }
+
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--ventara-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-stat-label {
+            color: var(--ventara-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+        }
+
+        /* Benefits */
+        .benefits-section {
+            padding: 4rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ventara-primary);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--ventara-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-text {
+            color: var(--ventara-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Job Listings */
+        .jobs-section {
+            padding: 4rem 3rem;
+            background: var(--ventara-dark);
+        }
+
+        .job-filters {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--ventara-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--ventara-primary);
+            color: white;
+            border-color: var(--ventara-primary);
+        }
+
+        .jobs-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .job-card {
+            background: var(--ventara-gray);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .job-card:hover {
+            border-color: var(--ventara-primary);
+        }
+
+        .job-card.expanded {
+            border-color: var(--ventara-primary);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--ventara-muted);
+            font-size: 0.875rem;
+        }
+
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .job-badge {
+            background: var(--ventara-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .job-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+
+        .job-card.expanded .job-details {
+            max-height: 1000px;
+            margin-top: 1.5rem;
+        }
+
+        .job-description {
+            color: var(--ventara-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .job-requirements {
+            margin-bottom: 1.5rem;
+        }
+
+        .job-requirements h4 {
+            margin-bottom: 0.5rem;
+            color: var(--ventara-light);
+        }
+
+        .job-requirements ul {
+            list-style: none;
+            color: var(--ventara-muted);
+        }
+
+        .job-requirements li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .job-requirements li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--ventara-primary);
+        }
+
+        .apply-btn {
+            background: var(--ventara-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: var(--ventara-primary-dark);
+        }
+
+        /* Culture Section */
+        .culture-section {
+            padding: 4rem 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .culture-image {
+            aspect-ratio: 4/3;
+            background: var(--ventara-gray);
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .culture-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .culture-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .culture-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .culture-text p {
+            color: var(--ventara-muted);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ventara-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            text-align: center;
+            color: var(--ventara-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--ventara-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--ventara-primary); }
+
+        @media (max-width: 768px) {
+            .culture-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Shop</a>
+        <a href="index.html" class="logo">
+            <img src="220594.png" alt="Ventara">
+            𝖛𝖊𝖓𝖙𝖆𝖗𝖆
+        </a>
+        <div></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Join Our Team</h1>
+            <p>Shape the future of fashion with us</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">50+</div>
+                    <div class="hero-stat-label">Team Members</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">12</div>
+                    <div class="hero-stat-label">Open Positions</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">8</div>
+                    <div class="hero-stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits-section">
+        <div class="section-header">
+            <h2>Why Work With Us</h2>
+            <p style="color: var(--ventara-muted);">Perks and benefits that matter</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🏥</div>
+                <h3 class="benefit-title">Health Coverage</h3>
+                <p class="benefit-text">Comprehensive medical, dental, and vision insurance for you and your family</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏖️</div>
+                <h3 class="benefit-title">Unlimited PTO</h3>
+                <p class="benefit-text">Take the time you need to recharge and pursue your passions</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3 class="benefit-title">Competitive Pay</h3>
+                <p class="benefit-text">Above-market salaries with regular performance reviews and bonuses</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🚀</div>
+                <h3 class="benefit-title">Growth Opportunities</h3>
+                <p class="benefit-text">Professional development budget and clear career advancement paths</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">👕</div>
+                <h3 class="benefit-title">Employee Discount</h3>
+                <p class="benefit-text">50% off all VENTARA products plus exclusive employee-only releases</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏢</div>
+                <h3 class="benefit-title">Flexible Work</h3>
+                <p class="benefit-text">Hybrid work model with modern offices and home office stipend</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Listings -->
+    <section class="jobs-section">
+        <div class="section-header">
+            <h2>Open Positions</h2>
+            <p style="color: var(--ventara-muted);">Find your perfect role</p>
+        </div>
+        
+        <div class="job-filters">
+            <button class="filter-btn active" onclick="filterJobs('all')">All</button>
+            <button class="filter-btn" onclick="filterJobs('design')">Design</button>
+            <button class="filter-btn" onclick="filterJobs('tech')">Tech</button>
+            <button class="filter-btn" onclick="filterJobs('marketing')">Marketing</button>
+            <button class="filter-btn" onclick="filterJobs('operations')">Operations</button>
+        </div>
+
+        <div class="jobs-list" id="jobsList">
+            <!-- Job 1 -->
+            <div class="job-card" data-category="design" onclick="toggleJob(this)">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Senior Fashion Designer</h3>
+                        <div class="job-meta">
+                            <span>📍 New York</span>
+                            <span>💼 Full-time</span>
+                        </div>
+                    </div>
+                    <span class="job-badge">New</span>
+                </div>
+                <div class="job-details">
+                    <p class="job-description">Lead the design process for our upcoming collections, from concept to final production. Work closely with our creative director to define the visual direction of VENTARA.</p>
+                    <div class="job-requirements">
+                        <h4>Requirements:</h4>
+                        <ul>
+                            <li>5+ years experience in fashion design</li>
+                            <li>Strong portfolio demonstrating contemporary menswear</li>
+                            <li>Proficiency in Adobe Creative Suite and CLO3D</li>
+                            <li>Excellent understanding of fabrics and construction</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" onclick="event.stopPropagation(); applyJob('Senior Fashion Designer')">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="job-card" data-category="tech" onclick="toggleJob(this)">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Frontend Developer</h3>
+                        <div class="job-meta">
+                            <span>📍 Remote</span>
+                            <span>💼 Full-time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <p class="job-description">Build and maintain our e-commerce platform, ensuring a seamless shopping experience for our customers across all devices.</p>
+                    <div class="job-requirements">
+                        <h4>Requirements:</h4>
+                        <ul>
+                            <li>3+ years experience with React/Vue</li>
+                            <li>Strong CSS and responsive design skills</li>
+                            <li>Experience with e-commerce platforms</li>
+                            <li>Passion for fashion and retail</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" onclick="event.stopPropagation(); applyJob('Frontend Developer')">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="job-card" data-category="marketing" onclick="toggleJob(this)">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Social Media Manager</h3>
+                        <div class="job-meta">
+                            <span>📍 London</span>
+                            <span>💼 Full-time</span>
+                        </div>
+                    </div>
+                    <span class="job-badge">Hot</span>
+                </div>
+                <div class="job-details">
+                    <p class="job-description">Own our social media presence across Instagram, TikTok, and Twitter. Create engaging content that resonates with our audience and drives brand awareness.</p>
+                    <div class="job-requirements">
+                        <h4>Requirements:</h4>
+                        <ul>
+                            <li>3+ years social media management experience</li>
+                            <li>Proven track record growing brand accounts</li>
+                            <li>Excellent copywriting and visual storytelling skills</li>
+                            <li>Deep understanding of fashion trends</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" onclick="event.stopPropagation(); applyJob('Social Media Manager')">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- Job 4 -->
+            <div class="job-card" data-category="operations" onclick="toggleJob(this)">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Supply Chain Coordinator</h3>
+                        <div class="job-meta">
+                            <span>📍 Los Angeles</span>
+                            <span>💼 Full-time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <p class="job-description">Manage relationships with our manufacturing partners and ensure timely delivery of high-quality products.</p>
+                    <div class="job-requirements">
+                        <h4>Requirements:</h4>
+                        <ul>
+                            <li>2+ years supply chain experience</li>
+                            <li>Experience with sustainable manufacturing</li>
+                            <li>Strong negotiation and communication skills</li>
+                            <li>Detail-oriented and organized</li>
+                        </ul>
+                    </div>
+                    <button class="apply-btn" onclick="event.stopPropagation(); applyJob('Supply Chain Coordinator')">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture -->
+    <section class="culture-section">
+        <div class="section-header">
+            <h2>Our Culture</h2>
+            <p style="color: var(--ventara-muted);">What makes us different</p>
+        </div>
+        
+        <div class="culture-grid">
+            <div class="culture-image">
+                <img src="team-photo.jpg" alt="VENTARA Team" onerror="this.style.display='none'; this.parentElement.style.background='var(--ventara-primary)'">
+            </div>
+            <div class="culture-text">
+                <h3>Innovation First</h3>
+                <p>We're not just following trends—we're setting them. Every team member is encouraged to bring bold ideas and challenge the status quo. From sustainable materials to cutting-edge designs, innovation is at the heart of everything we do.</p>
+            </div>
+            <div class="culture-text">
+                <h3>People Focused</h3>
+                <p>We believe that great products come from great people. That's why we invest heavily in our team's growth, well-being, and work-life balance. Flexible schedules, professional development, and a supportive environment are just the beginning.</p>
+            </div>
+            <div class="culture-image">
+                <img src="office-photo.jpg" alt="VENTARA Office" onerror="this.style.display='none'; this.parentElement.style.background='var(--ventara-accent)'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="our-story.html">Our Story</a>
+            <a href="faq.html">FAQ</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p>&copy; 2026 𝖛𝖊𝖓𝖙𝖆𝖗𝖆®. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle job details
+        function toggleJob(card) {
+            const isExpanded = card.classList.contains('expanded');
+            
+            // Close all
+            document.querySelectorAll('.job-card').forEach(c => c.classList.remove('expanded'));
+            
+            // Toggle current
+            if (!isExpanded) {
+                card.classList.add('expanded');
+            }
+        }
+
+        // Filter jobs
+        function filterJobs(category) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.job-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Apply for job
+        function applyJob(title) {
+            const email = 'careers@ventara.com';
+            const subject = `Application: ${title}`;
+            const body = `Dear VENTARA Hiring Team,%0D%0A%0D%0AI am writing to apply for the ${title} position.%0D%0A%0D%0A[Your cover letter here]%0D%0A%0D%0ABest regards,%0D%0A[Your name]`;
+            
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        }
+    </script>
+</body>
+</html>
